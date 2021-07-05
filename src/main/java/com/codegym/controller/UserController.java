@@ -12,6 +12,6 @@ import java.security.Principal;
 public class UserController {
     @GetMapping("/")
     public ModelAndView index() {
-        return new ModelAndView("user");
+        return new ModelAndView("/index");
     }
 }

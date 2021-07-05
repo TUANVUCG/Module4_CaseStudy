@@ -17,10 +17,6 @@ import java.util.Optional;
 public class ItemsController {
     @Autowired
     private IItemsService itemsService;
-    @GetMapping("/")
-    public ResponseEntity<?> showItems(@PageableDefault(size = 5) Pageable pageable, Cart cart){
-       return new ResponseEntity<>(itemsService.findItemsByCart(cart.getId(),pageable),HttpStatus.OK);
-    }
 
     @PostMapping("/")
     public ResponseEntity<?> addItems(Items items){
