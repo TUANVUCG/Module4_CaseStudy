@@ -1,7 +1,8 @@
 package com.codegym.controller;
 
-import com.codegym.model.Items;
+
 import com.codegym.model.Product;
+import com.codegym.service.product.IProductService;
 import com.codegym.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,17 +15,17 @@ import java.util.Optional;
 @RequestMapping("/product")
 public class ProductController {
 
-
     @Autowired
-    ProductService productService;
+    private IProductService productService;
 
     @PostMapping("/")
-    public ResponseEntity<Product> addProduct(Product product){
+    public ResponseEntity<Product> addProduct(Product product) {
         return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
     }
 
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Product> delete(@PathVariable Long id){
+    public ResponseEntity<Product> delete(@PathVariable Long id) {
         Optional<Product> productOptional = productService.findById(id);
         if (!productOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
