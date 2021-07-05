@@ -18,12 +18,12 @@ public class ItemsController {
     @Autowired
     private IItemsService itemsService;
 
-    @PostMapping("/")
+    @PostMapping("/add-items")
     public ResponseEntity<?> addItems(Items items){
         return new ResponseEntity<>(itemsService.save(items), HttpStatus.CREATED);
     }
 
-    @DeleteMapping ("/{id}")
+    @DeleteMapping ("/remove-items/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         Optional<Items> itemsOptional = itemsService.findById(id);
         if (!itemsOptional.isPresent()) {
@@ -33,7 +33,7 @@ public class ItemsController {
         return new ResponseEntity<>(itemsOptional.get(), HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/edit-order/{id}")
     public ResponseEntity<Items> updateItems(@PathVariable Long id, @RequestBody Items items) {
         Optional<Items> itemsOptional = itemsService.findById(id);
         if (!itemsOptional.isPresent()) {
