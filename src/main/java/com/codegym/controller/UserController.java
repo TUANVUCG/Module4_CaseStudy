@@ -47,4 +47,14 @@ public class UserController {
         userService.remove(id);
         return new ResponseEntity<>(userOptional.get(), HttpStatus.NO_CONTENT);
     }
+    @PutMapping("{id}")
+    public ResponseEntity<User> editUser(@PathVariable Long id,@RequestBody User user){
+        Optional<User> userOptional = userService.findById(id);
+                if(!userOptional.isPresent()){
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+                user.setId(id);
+                return new ResponseEntity<>(userService.save(user),HttpStatus.OK);
+    }
+
 }
