@@ -1,7 +1,7 @@
 package com.codegym.controller;
 
-import com.codegym.model.Items;
 import com.codegym.model.Product;
+import com.codegym.service.product.IProductService;
 import com.codegym.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,10 +13,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/product")
 public class ProductController {
-
-
     @Autowired
-    ProductService productService;
+    IProductService productService;
 
     @PostMapping("/")
     public ResponseEntity<Product> addProduct(Product product){
