@@ -5,9 +5,13 @@ import com.codegym.model.Product;
 import com.codegym.service.product.IProductService;
 import com.codegym.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
@@ -18,14 +22,22 @@ public class ProductController {
     @Autowired
     private IProductService productService;
 
-    @PostMapping("/")
-    public ResponseEntity<Product> addProduct(Product product) {
+
+    @PostMapping
+    public ResponseEntity<Product> createSmartphone(@RequestBody Product product) {
         return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/list")
+    public ModelAndView getAllSmartphonePage(Pageable pageable) {
+        ModelAndView modelAndView = new ModelAndView("/product/index");
+        modelAndView.addObject("smartphones", productService.findAll(pageable));
+        return modelAndView;
     }
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Product> delete(@PathVariable Long id) {
+    public ResponseEntity<Product> deleteById(@PathVariable Long id) {
         Optional<Product> productOptional = productService.findById(id);
         if (!productOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -34,13 +46,32 @@ public class ProductController {
         return new ResponseEntity<>(productOptional.get(), HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> findById(@PathVariable Long id) {
         Optional<Product> productOptional = productService.findById(id);
         if (!productOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        product.setId(productOptional.get().getId());
+        return new ResponseEntity<>(productOptional.get(), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> editById(@PathVariable Long id, @RequestBody Product product) {
+        Optional<Product> productOptional = productService.findById(id);
+        if (!productOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        product.setId(id);
         return new ResponseEntity<>(productService.save(product), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<Product>> searchByCategory(@RequestParam Optional<String> q, @PageableDefault(size = 10) Pageable pageable ){
+        if(!q.isPresent()){
+            return new ResponseEntity<>(productService.findAll(pageable), HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(productService.findAllByCategoryContaining(q.get(), pageable), HttpStatus.OK);
+        }
     }
 }
