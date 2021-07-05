@@ -10,8 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IUserRepository extends JpaRepository<User, Long> {
     User findByUsername(String userName);
-    Page<User> findAllByCategoryContaining(String category , Pageable pageable);
-
-    Page<User> findAll(Pageable pageable);
 
 }
