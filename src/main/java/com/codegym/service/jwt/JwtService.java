@@ -26,7 +26,6 @@ public class JwtService {
                 .compact();
     }
 
-
     // Kiem tra xem token he thong sinh ra co hop le khong
     public boolean validateJwtToken(String authToken) throws SignatureException {
         try {
