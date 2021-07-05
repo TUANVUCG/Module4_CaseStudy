@@ -1,5 +1,6 @@
 package com.codegym.controller;
 
+
 import com.codegym.model.Product;
 import com.codegym.service.product.IProductService;
 import com.codegym.service.product.ProductService;
@@ -13,16 +14,18 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/product")
 public class ProductController {
+
     @Autowired
-    IProductService productService;
+    private IProductService productService;
 
     @PostMapping("/")
-    public ResponseEntity<Product> addProduct(Product product){
+    public ResponseEntity<Product> addProduct(Product product) {
         return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
     }
 
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Product> delete(@PathVariable Long id){
+    public ResponseEntity<Product> delete(@PathVariable Long id) {
         Optional<Product> productOptional = productService.findById(id);
         if (!productOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

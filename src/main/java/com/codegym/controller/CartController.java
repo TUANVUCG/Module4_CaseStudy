@@ -12,9 +12,4 @@ import org.springframework.web.servlet.ModelAndView;
 public class CartController {
     @Autowired
     private ICartService cartServiceCart;
-
-    @GetMapping("/")
-    public ModelAndView showCart (User user){
-        return new ModelAndView("/index");
-    }
 }
