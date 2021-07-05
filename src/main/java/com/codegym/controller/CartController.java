@@ -12,6 +12,4 @@ import org.springframework.web.servlet.ModelAndView;
 public class CartController {
     @Autowired
     private ICartService cartServiceCart;
-
-
 }
