@@ -1,7 +1,6 @@
 package com.codegym.service.jwt;
 
 import com.codegym.model.UserPrincipal;
-import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm;
 import org.slf4j.Logger;
 import io.jsonwebtoken.*;
 import org.slf4j.LoggerFactory;
@@ -26,7 +25,6 @@ public class JwtService {
                 .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
                 .compact();
     }
-
 
     // Kiem tra xem token he thong sinh ra co hop le khong
     public boolean validateJwtToken(String authToken) throws SignatureException {
