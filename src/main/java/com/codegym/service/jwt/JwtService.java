@@ -1,7 +1,6 @@
 package com.codegym.service.jwt;
 
 import com.codegym.model.UserPrincipal;
-import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm;
 import org.slf4j.Logger;
 import io.jsonwebtoken.*;
 import org.slf4j.LoggerFactory;
