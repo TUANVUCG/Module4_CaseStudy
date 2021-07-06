@@ -8,8 +8,6 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +22,8 @@ public class Product {
     private double sale;
 
     private double quantity;
+
+    private double realPrice;
 
     @Column(columnDefinition = "text")
     private String img;
