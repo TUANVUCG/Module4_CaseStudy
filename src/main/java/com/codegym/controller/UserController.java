@@ -27,12 +27,12 @@ public class UserController {
         modelAndView.addObject("user", users());
         return modelAndView;
     }
-    @GetMapping
+    @GetMapping("")
 public ResponseEntity<Iterable<User>> findAll(){
         return new ResponseEntity<>(userService.findAll(),HttpStatus.OK);
 
     }
-    @PostMapping
+    @PostMapping("")
     private ResponseEntity<User> createUser(@RequestBody User user){
         return new ResponseEntity<>(userService.save(user),HttpStatus.CREATED);
     }
