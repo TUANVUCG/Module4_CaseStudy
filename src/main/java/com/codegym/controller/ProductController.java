@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.xml.transform.OutputKeys;
 import java.util.Optional;
 
 @RestController
@@ -24,14 +25,14 @@ public class ProductController {
 
 
     @PostMapping
-    public ResponseEntity<Product> createSmartphone(@RequestBody Product product) {
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
     }
 
     @GetMapping("/list")
-    public ModelAndView getAllSmartphonePage(Pageable pageable) {
-        ModelAndView modelAndView = new ModelAndView("/product/index");
-        modelAndView.addObject("smartphones", productService.findAll(pageable));
+    public ModelAndView getAllProduct(Pageable pageable) {
+        ModelAndView modelAndView = new ModelAndView("/index");
+        modelAndView.addObject("product", productService.findAll(pageable));
         return modelAndView;
     }
 
@@ -73,5 +74,10 @@ public class ProductController {
         else {
             return new ResponseEntity<>(productService.findAllByCategoryContaining(q.get(), pageable), HttpStatus.OK);
         }
+    }
+
+    @GetMapping("/productList")
+    public ResponseEntity<?> findAllProduct(){
+        return new ResponseEntity<>(productService.findAll(),HttpStatus.OK);
     }
 }
