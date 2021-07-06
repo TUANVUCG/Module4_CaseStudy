@@ -131,52 +131,60 @@
         <main>
             <div class="container-fluid px-4">
                 <h1 class="mt-4">ADMIN</h1>
-<!--                <ol class="breadcrumb mb-4">-->
-<!--                </ol>-->
-<!--                <div class="row">-->
-<!--                    <div class="col-xl-3 col-md-6">-->
-<!--                        <div class="card bg-primary text-white mb-4">-->
-<!--                            &lt;!&ndash;                            <div class="card-body">Customer</div>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            <div class="card-footer d-flex align-items-center justify-content-between">&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                <button onclick="showCustomer()">Customer</button>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            </div>&ndash;&gt;-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-xl-3 col-md-6">-->
-<!--                        <div class="card bg-warning text-white mb-4">-->
-<!--                            <div class="card-body">Product</div>-->
-<!--                            &lt;!&ndash;                            <div class="card-footer d-flex align-items-center justify-content-between">&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                <button onclick="showProduct()">View Details</button>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            </div>&ndash;&gt;-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-xl-3 col-md-6">-->
-<!--                        <div class="card bg-success text-white mb-4">-->
-<!--                            <div class="card-body">Revenue</div>-->
-<!--                            <div class="card-footer d-flex align-items-center justify-content-between">-->
-<!--                                <button onclick="showRevenue()">View Details</button>-->
-<!--                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-xl-3 col-md-6">-->
-<!--                        <div class="card bg-danger text-white mb-4">-->
-<!--                            <div class="card-body">Order</div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="row">-->
-<!--                    <div class="col-xl-6">-->
-<!--                        <div class="card mb-4">-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-xl-6">-->
-<!--                        <div class="card mb-4">-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <div class="button-create">
+                    <button style="" onClick="showFormCreate()" type="button" class="btn btn-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop" id="${product.id}">
+                        Create New Product
+                    </button>
+                </div>
+
+                <!--                <ol class="breadcrumb mb-4">-->
+                <!--                </ol>-->
+                <!--                <div class="row">-->
+                <!--                    <div class="col-xl-3 col-md-6">-->
+                <!--                        <div class="card bg-primary text-white mb-4">-->
+                <!--                            &lt;!&ndash;                            <div class="card-body">Customer</div>&ndash;&gt;-->
+                <!--                            &lt;!&ndash;                            <div class="card-footer d-flex align-items-center justify-content-between">&ndash;&gt;-->
+                <!--                            &lt;!&ndash;                                <button onclick="showCustomer()">Customer</button>&ndash;&gt;-->
+                <!--                            &lt;!&ndash;                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>&ndash;&gt;-->
+                <!--                            &lt;!&ndash;                            </div>&ndash;&gt;-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                    <div class="col-xl-3 col-md-6">-->
+                <!--                        <div class="card bg-warning text-white mb-4">-->
+                <!--                            <div class="card-body">Product</div>-->
+                <!--                            &lt;!&ndash;                            <div class="card-footer d-flex align-items-center justify-content-between">&ndash;&gt;-->
+                <!--                            &lt;!&ndash;                                <button onclick="showProduct()">View Details</button>&ndash;&gt;-->
+                <!--                            &lt;!&ndash;                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>&ndash;&gt;-->
+                <!--                            &lt;!&ndash;                            </div>&ndash;&gt;-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                    <div class="col-xl-3 col-md-6">-->
+                <!--                        <div class="card bg-success text-white mb-4">-->
+                <!--                            <div class="card-body">Revenue</div>-->
+                <!--                            <div class="card-footer d-flex align-items-center justify-content-between">-->
+                <!--                                <button onclick="showRevenue()">View Details</button>-->
+                <!--                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                    <div class="col-xl-3 col-md-6">-->
+                <!--                        <div class="card bg-danger text-white mb-4">-->
+                <!--                            <div class="card-body">Order</div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--                <div class="row">-->
+                <!--                    <div class="col-xl-6">-->
+                <!--                        <div class="card mb-4">-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                    <div class="col-xl-6">-->
+                <!--                        <div class="card mb-4">-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
 
                 <!--            Bang product-->
@@ -196,7 +204,7 @@
     </div>
 </div>
 
-
+<!--Show Product-->
 <script>
     function showProduct() {
         $.ajax({
@@ -204,14 +212,15 @@
             url: "/products/productList",
             success: function (data) {
                 let content = `<table class="table" style="border-radius: 5px"> <tr style="text-align: center">
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Sale Price</th>
-      <th scope="col">Purchase Price</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Image</th>
-      <th scope="col">Description</th>
-      <th scope="col" colspan="2">Action</th>`;
+              <th scope="col">Name</th>
+              <th scope="col">Sell Price</th>
+              <th scope="col">Sale</th>
+              <th scope="col">Real Price</th>
+              <th scope="col">Purchase Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Image</th>
+              <th scope="col">Description</th>
+              <th scope="col" colspan="2">Action</th>`;
                 for (let i = 0; i < data.length; i++) {
                     content += getProduct(data[i]);
                 }
@@ -223,10 +232,12 @@
     function getProduct(product) {
         return `<tr style="text-align: center; vertical-align: middle">
                 <td>${product.name}</td>
-                <td >${product.sellPrice}</td>
-                <td >${product.sale}</td><td >${product.purchasePrice}</td>
-                <td >${product.quantity}</td>
-                <td class="imange-product"><img style="width: 70px; height: 70px" src="${product.img}">
+                <td>${product.sellPrice}</td>
+                <td>${product.sale}%</td>
+                <td>${product.realPrice}</td>
+                <td>${product.purchasePrice}</td>
+                <td>${product.quantity}</td>
+                <td><img style="width: 70px; height: 70px" src="${product.img}">
                 </td><td >${product.description}</td>
                 <td>
                 <button onclick="deleteById(this.id)" type="button" class="btn btn-danger" data-bs-toggle="modal"
@@ -242,9 +253,81 @@
                 </td></tr>
                 `;
     }
-
 </script>
+
+<!--Create new product-->
 <script>
+    function showFormCreate() {
+        let formCreate = `<form>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Name</label>
+    <input type="email" class="form-control" id="nameCreate" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Sell Price</label>
+    <input type="text" class="form-control" id="sellPriceCreate">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Purchase Price</label>
+    <input type="text" class="form-control" id="purchasePriceCreate">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Sale</label>
+    <input type="text" class="form-control" id="saleCreate">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Quantity</label>
+    <input type="text" class="form-control" id="quantityCreate">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Real Price</label>
+    <input type="text" class="form-control" id="realPriceCreate">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Image</label>
+    <input type="text" class="form-control" id="imageCreate">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Description</label>
+    <textarea class="form-control" id="descriptionCreate"></textarea>
+  </div>
+  <button onclick="createNewProduct()" type="submit" class="btn btn-primary">Create</button>
+</form>`
+        document.getElementById('productList').innerHTML = formCreate
+    }
+
+    function createNewProduct() {
+        let name = $('#nameCreate').val();
+        let sellPrice = $('#sellPriceCreate').val();
+        let purchasePriceCreate = $('#purchasePriceCreate').val();
+        let saleCreate = $('#saleCreate').val();
+        let quantityCreate = $('#quantityCreate').val();
+        let realPriceCreate = $('#realPriceCreate').val();
+        let imageCreate = $('#imageCreate').val();
+        let descriptionCreate = $('#descriptionCreate').val();
+        let newProduct = {
+            name : name,
+            sellPrice : sellPrice,
+            purchasePrice : purchasePriceCreate,
+            sale : saleCreate,
+            quantity : quantityCreate,
+            realPrice : realPriceCreate,
+            img : imageCreate,
+            description : descriptionCreate,
+        };
+
+        $.ajax({
+            headers : {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            data : JSON.stringify(newProduct),
+            url : "/products",
+            success : showProduct
+        })
+        event.preventDefault();
+    }
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

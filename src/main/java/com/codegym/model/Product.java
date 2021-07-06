@@ -23,6 +23,8 @@ public class Product {
 
     private double quantity;
 
+    private double realPrice;
+
     @Column(columnDefinition = "text")
     private String img;
 
