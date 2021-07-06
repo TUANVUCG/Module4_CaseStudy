@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Dashboard - SB Admin</title>
+    <title>Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
     <!--  <link href="/templateAdmin/css/styles.css" rel="stylesheet" />-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
@@ -68,12 +68,6 @@
                             <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
                         </nav>
                     </div>
-                    <!--                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"-->
-                    <!--                       aria-expanded="false" aria-controls="collapsePages">-->
-                    <!--                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>-->
-                    <!--                        Pages-->
-                    <!--                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>-->
-                    <!--                    </a>-->
                     <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
                          data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
@@ -127,6 +121,58 @@
             </div>
         </nav>
     </div>
+
+    <!-- Modal Edit -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="email" class="form-control" id="nameEdit" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Sell Price</label>
+                            <input type="text" class="form-control" id="sellPriceEdit">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label">Purchase Price</label>
+                            <input type="text" class="form-control" id="purchasePriceEdit">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label">Sale</label>
+                            <input type="text" class="form-control" id="saleEdit">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label">Quantity</label>
+                            <input type="text" class="form-control" id="quantityEdit">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label">Real Price</label>
+                            <input type="text" class="form-control" id="realPriceEdit">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label">Image</label>
+                            <input type="text" class="form-control" id="imageEdit">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label">Description</label>
+                            <textarea class="form-control" id="descriptionEdit"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="updateButton" class="btn btn-primary" >Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
@@ -138,56 +184,6 @@
                         Create New Product
                     </button>
                 </div>
-
-                <!--                <ol class="breadcrumb mb-4">-->
-                <!--                </ol>-->
-                <!--                <div class="row">-->
-                <!--                    <div class="col-xl-3 col-md-6">-->
-                <!--                        <div class="card bg-primary text-white mb-4">-->
-                <!--                            &lt;!&ndash;                            <div class="card-body">Customer</div>&ndash;&gt;-->
-                <!--                            &lt;!&ndash;                            <div class="card-footer d-flex align-items-center justify-content-between">&ndash;&gt;-->
-                <!--                            &lt;!&ndash;                                <button onclick="showCustomer()">Customer</button>&ndash;&gt;-->
-                <!--                            &lt;!&ndash;                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>&ndash;&gt;-->
-                <!--                            &lt;!&ndash;                            </div>&ndash;&gt;-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                    <div class="col-xl-3 col-md-6">-->
-                <!--                        <div class="card bg-warning text-white mb-4">-->
-                <!--                            <div class="card-body">Product</div>-->
-                <!--                            &lt;!&ndash;                            <div class="card-footer d-flex align-items-center justify-content-between">&ndash;&gt;-->
-                <!--                            &lt;!&ndash;                                <button onclick="showProduct()">View Details</button>&ndash;&gt;-->
-                <!--                            &lt;!&ndash;                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>&ndash;&gt;-->
-                <!--                            &lt;!&ndash;                            </div>&ndash;&gt;-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                    <div class="col-xl-3 col-md-6">-->
-                <!--                        <div class="card bg-success text-white mb-4">-->
-                <!--                            <div class="card-body">Revenue</div>-->
-                <!--                            <div class="card-footer d-flex align-items-center justify-content-between">-->
-                <!--                                <button onclick="showRevenue()">View Details</button>-->
-                <!--                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>-->
-                <!--                            </div>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                    <div class="col-xl-3 col-md-6">-->
-                <!--                        <div class="card bg-danger text-white mb-4">-->
-                <!--                            <div class="card-body">Order</div>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-                <!--                <div class="row">-->
-                <!--                    <div class="col-xl-6">-->
-                <!--                        <div class="card mb-4">-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                    <div class="col-xl-6">-->
-                <!--                        <div class="card mb-4">-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-
-
-                <!--            Bang product-->
                 <div class="card mb-4">
                     <div class="card-body" id="productList">
                     </div>
@@ -204,9 +200,11 @@
     </div>
 </div>
 
+
 <!--Show Product-->
 <script>
     function showProduct() {
+        $('#staticBackdrop').modal('hide');
         $.ajax({
             type: "get",
             url: "/products/productList",
@@ -240,17 +238,18 @@
                 <td><img style="width: 70px; height: 70px" src="${product.img}">
                 </td><td >${product.description}</td>
                 <td>
+                <button onClick="findProductById(this.id)" id="${product.id}" type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Edit
+                </button>
+                </button>
+                </td>
+                <td>
                 <button onclick="deleteById(this.id)" type="button" class="btn btn-danger" data-bs-toggle="modal"
                         data-bs-target="#delete" id="${product.id}">
                     Delete
                 </button>
                 </td>
-                <td>
-                <button onClick="findSmartPhone(this.id)" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop" id="${product.id}">
-                Edit
-                </button>
-                </td></tr>
+                </tr>
                 `;
     }
 </script>
@@ -306,28 +305,80 @@
         let imageCreate = $('#imageCreate').val();
         let descriptionCreate = $('#descriptionCreate').val();
         let newProduct = {
-            name : name,
-            sellPrice : sellPrice,
-            purchasePrice : purchasePriceCreate,
-            sale : saleCreate,
-            quantity : quantityCreate,
-            realPrice : realPriceCreate,
-            img : imageCreate,
-            description : descriptionCreate,
+            name: name,
+            sellPrice: sellPrice,
+            purchasePrice: purchasePriceCreate,
+            sale: saleCreate,
+            quantity: quantityCreate,
+            realPrice: realPriceCreate,
+            img: imageCreate,
+            description: descriptionCreate,
         };
 
         $.ajax({
-            headers : {
+            headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             type: "POST",
-            data : JSON.stringify(newProduct),
-            url : "/products",
-            success : showProduct
+            data: JSON.stringify(newProduct),
+            url: "/products",
+            success: showProduct
         })
         event.preventDefault();
     }
+</script>
+
+<!--Edit Product-->
+<script>
+function findProductById(id){
+    $('#staticBackdrop').modal('hide');
+    $.ajax({
+        type: "get",
+        url : "/products/"+id,
+        success : function (data){
+            $('#nameEdit').val(data.name)
+            $('#sellPriceEdit').val(data.sellPrice)
+            $('#purchasePriceEdit').val(data.purchasePrice)
+            $('#saleEdit').val(data.sale)
+            $('#quantityEdit').val(data.quantity)
+            $('#realPriceEdit').val(data.realPrice)
+            $('#imageEdit').val(data.img)
+            $('#descriptionEdit').val(data.description)
+            $('#updateButton').click(function (event){
+                    let name = $('#nameEdit').val();
+                    let sellPrice = $('#sellPriceEdit').val();
+                    let purchasePrice = $('#purchasePriceEdit').val()
+                    let sale = $('#saleEdit').val()
+                    let quantity = $('#quantityEdit').val()
+                    let realPrice = $('#realPriceEdit').val()
+                    let img = $('#imageEdit').val()
+                    let description = $('#descriptionEdit').val()
+                    let updateProduct = {
+                        name : name,
+                        sellPrice : sellPrice,
+                        purchasePrice : purchasePrice,
+                        sale : sale,
+                        quantity : quantity,
+                        realPrice : realPrice,
+                        img : img,
+                        description : description
+                    }
+                    $.ajax({
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        type : 'PUT',
+                        data : JSON.stringify(updateProduct),
+                        url : "/products/"+id,
+                        success : showProduct
+                    });
+                    event.preventDefault();
+            });
+        }
+    })
+}
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
