@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-public class UserPrincipal implements UserDetails {
+public class  UserPrincipal implements UserDetails {
     private Long id;
 
     private String username;
