@@ -131,7 +131,7 @@
                 <ol class="breadcrumb mb-4">
                 </ol>
 
-                <--Customer-->
+                <!--Customer-->
                 <div class="row">
                     <div class="col-xl-3 col-md-6">
                         <div class="card bg-primary text-white mb-4">
@@ -185,8 +185,12 @@
                 <div class="card mb-4">
                     <div class="card-body">
 
-                        <--table-->
-                        <table id="datatablesSimple" class="table table-striped">
+                        <!--table-->
+                        <div  class="btn btn-primary">
+                        <button onclick=" " class="btn btn-primary" id="showForm">Add New User</button>
+                        <span class="iconify" data-icon="ion-person-add" data-inline="false"></span>
+                        </div>
+                        <table id="userList" class="table table-striped">
                             <thead>
                             <tr>
                                 <th>Id</th>
@@ -235,6 +239,40 @@
                             <tfoot>
                             </tfoot>
                         </table>
+                      <!-- table  -->
+
+                     <!--     form    -->
+                        <form>
+                            <div class="mb-3">
+                                <label for="accountUser" class="form-label">Account</label>
+                                <input type="email" class="form-control" id="accountUser" placeholder=AccountUser>
+                            </div>
+                            <div class="mb-3">
+                                <label for="addressUser" class="form-label">Address</label>
+                                <input type="email" class="form-control" id="addressUser" placeholder="AddressUser">
+                            </div>
+                            <div class="mb-3">
+                                <label for="avatarUser" class="form-label">Avatar</label>
+                                <input type="email" class="form-control" id="avatarUser" placeholder="AvatarUser">
+                            </div>
+                            <div class="mb-3">
+                                <label for="emailUser" class="form-label">email</label>
+                                <input type="email" class="form-control" id="emailUser" placeholder="EmailUser">
+                            </div>
+                            <div class="mb-3">
+                                <label for="phoneUser" class="form-label">PassWord</label>
+                                <input type="email" class="form-control" id="phoneUser" placeholder="PhoneUser">
+                            </div>
+                            <div class="mb-3">
+                                <label for="usernameUser" class="form-label">userName</label>
+                                <input type="email" class="form-control" id="usernameUser" placeholder="UserNameUser">
+                            </div>
+                            <div class="form-floating" style="margin: 30px 0 30px 0">
+                                <button type="submit" onclick="addNewUser()" class="btn btn-primary">submit</button>
+                            </div>
+                        </form>
+                       <!--form -->
+
 
 
                     </div>
@@ -255,6 +293,7 @@
         </footer>
     </div>
 </div>
+<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
@@ -267,11 +306,14 @@
 <script src="/../templateAdmin/js/scripts.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
+    function showForm(){
+
+    }
     function addNewUser() {
         let account = $('#accountUser').val();
         let address = $('#addressUser').val();
         let avatar = $('#avatarUser').val();
-        let email = $('#eamilUser').val();
+        let email = $('#emailUser').val();
         let phone = $('#phoneUser').val();
         let username = $('#usernameUser').val();
         let user = {
@@ -292,7 +334,7 @@
             url: "/admin",
             success: function () {
                 console.log("add success");
-                successHandler();
+                successHandler;
             }
         });
         event.preventDefault();
@@ -301,7 +343,7 @@
         $.ajax({
             type: "get",
             url: "/admin",
-            success:function (){
+            success:function (data){
                 let content ='<tr>\n'+
                     '<th>Id</th>\n'+
                     '<th>Account</th>\n'+
@@ -311,9 +353,42 @@
                     ',<th>phoneNumber</th>\n'+
                     '<th>userName</th>\n'+
                     '</tr>';
-
+                for (let i=0;i=data.length;i++){
+                    content+=getUser(data[i]);
+                }
+                document.getElementById('userList').innerHTML=content;
             }
         })
+
+    }
+    function getUser(user){
+        return ' <tr>\n' +
+            '                                    <td th:text="${user.id}"></td>\n' +
+            '                                    <td th:text="${user.account}"></td>\n' +
+            '                                    <td th:text="${user.address}"></td>\n' +
+            '                                    <td th:text="${user.avatar}"></td>\n' +
+            '                                    <td th:text="${user.email}"></td>\n' +
+            '                                    <td th:text="${user.phoneNumber}"></td>\n' +
+            '                                    <td th:text="${user.username}"></td>\n' +
+            '                                    <td>\n' +
+            '                                        <button type="submit" onclick="editUser(this.id)" th:id="${user.id}"\n' +
+            '                                                class="btn btn-primary" data-bs-toggle="modal"\n' +
+            '                                                data-bs-target="#exampleModalView">Edit\n' +
+            '                                        </button>\n' +
+            '                                    </td>\n' +
+            '                                    <td>\n' +
+            '                                        <button type="submit" onclick="deleteUser(this.id)" th:id="${user.id}"\n' +
+            '                                                class="btn btn-warning" data-bs-toggle="modal"\n' +
+            '                                                data-bs-target="#exampleModalView">Delete\n' +
+            '                                        </button>\n' +
+            '                                    </td>\n' +
+            '                                    <td>\n' +
+            '                                        <button type="submit" onclick="viewUser(this.id)" th:id="${user.id}"\n' +
+            '                                                class="btn btn-danger" data-bs-toggle="modal"\n' +
+            '                                                data-bs-target="#exampleModalView">View\n' +
+            '                                        </button>\n' +
+            '                                    </td>\n' +
+            '                                </tr> ';
 
     }
 </script>
