@@ -35,9 +35,9 @@
     <!-- Navbar Search-->
     <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
         <div class="input-group">
-            <input class="form-control" type="text" placeholder="Search..." aria-label="Search for..."
+            <input id="q" class="form-control" type="text" placeholder="Search..." aria-label="Search for..."
                    aria-describedby="btnNavbarSearch"/>
-            <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+            <button onclick="search()" class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
         </div>
     </form>
     <!-- Navbar-->
@@ -411,6 +411,33 @@ function findProductById(id){
             });
             event.preventDefault();
         });
+    }
+</script>
+
+<!--Search by name-->
+<script>
+    function search() {
+        let q = $('#q').val();
+        $.ajax({
+            type: "get",
+            url: `/products?q=${q}`,
+            success: function (data) {
+                let content = `<table class="table" style="border-radius: 5px"> <tr style="text-align: center">
+              <th scope="col">Name</th>
+              <th scope="col">Sell Price</th>
+              <th scope="col">Sale</th>
+              <th scope="col">Real Price</th>
+              <th scope="col">Purchase Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Image</th>
+              <th scope="col">Description</th>
+              <th scope="col" colspan="2">Action</th>`;
+                for (let i = 0; i < data.content.length; i++) {
+                    content += getProduct(data.content[i]);
+                }
+                document.getElementById('productList').innerHTML = content;
+            }
+        })
     }
 </script>
 
