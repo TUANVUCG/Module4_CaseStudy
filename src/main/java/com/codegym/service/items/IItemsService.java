@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface IItemsService extends IGeneralService<Items> {
     Page<Items> findAll(Pageable pageable);
-    Page<Items> findItemsByCart(Long cartId, Pageable pageable);
+    Iterable<Items> findItemsByCart(Long cartId);
 }

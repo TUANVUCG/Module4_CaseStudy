@@ -1,5 +1,7 @@
 package com.codegym.controller;
 
+import com.codegym.model.Cart;
+import com.codegym.model.Items;
 import com.codegym.service.items.IItemsService;
 import com.codegym.service.order.IOrderService;
 import com.codegym.service.product.IProductService;
@@ -27,15 +29,20 @@ public class IndexController {
     private IProductService productService;
 
 
-    @GetMapping("/list")
-    public ResponseEntity<?> index() {
+    @GetMapping("/product")
+    public ResponseEntity<?> getListProduct() {
         return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping()
-    public ModelAndView getAllSmartphonePage() {
+    public ModelAndView showIndex() {
         ModelAndView modelAndView = new ModelAndView("/index");
         return modelAndView;
+    }
+
+    @GetMapping("/cart")
+    public ResponseEntity<Iterable<Items>> getItemsCart() {
+        return new ResponseEntity<>(itemsService.findItemsByCart(Long.valueOf(1)), HttpStatus.OK);
     }
 
     @GetMapping("/product/{id}")
