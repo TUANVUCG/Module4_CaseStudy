@@ -181,7 +181,7 @@
                     <button style="" onClick="showFormCreate()" type="button" class="btn btn-primary"
                             data-bs-toggle="modal"
                             data-bs-target="#staticBackdrop" id="${product.id}">
-                        Create New Product
+                        Add New Product
                     </button>
                 </div>
                 <div class="card mb-4">
@@ -204,7 +204,6 @@
 <!--Show Product-->
 <script>
     function showProduct() {
-        $('#staticBackdrop').modal('hide');
         $.ajax({
             type: "get",
             url: "/products/productList",
@@ -226,7 +225,6 @@
             }
         })
     };
-
     function getProduct(product) {
         return `<tr style="text-align: center; vertical-align: middle">
                 <td>${product.name}</td>
@@ -238,7 +236,7 @@
                 <td><img style="width: 70px; height: 70px" src="${product.img}">
                 </td><td >${product.description}</td>
                 <td>
-                <button onClick="findProductById(this.id)" id="${product.id}" type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <button onClick="findProductById(this.id)" id="${product.id}" type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#editProduct">
                     Edit
                 </button>
                 </button>
@@ -332,7 +330,6 @@
 <!--Edit Product-->
 <script>
 function findProductById(id){
-    $('#staticBackdrop').modal('hide');
     $.ajax({
         type: "get",
         url : "/products/"+id,
