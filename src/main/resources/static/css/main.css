@@ -666,13 +666,11 @@
 }
 .header__cart-no-cart-img {
     width: 54%;
-    display: none;
 }
 .header__cart-list-no-cart-msg {
     font-size: 1.4rem;
     margin-top: 14px;
     color: var(--text-color);
-    display: none;
 }
 .header__cart-notice {
     position: absolute;
