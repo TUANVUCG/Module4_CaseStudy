@@ -13,11 +13,13 @@ public class Product {
 
     private String name;
 
-    private double salePrice;
+    private double sellPrice;
 
     private double purchasePrice;
 
     private double quantity;
+
+    private double sale;
 
     @Column(columnDefinition = "text")
     private String img;

@@ -186,7 +186,7 @@
                     <div class="card-body">
 
                         <--table-->
-                        <table id="datatablesSimple">
+                        <table id="datatablesSimple" class="table table-striped">
                             <thead>
                             <tr>
                                 <th>Id</th>
@@ -194,7 +194,6 @@
                                 <th>Address</th>
                                 <th>Avatar</th>
                                 <th>Email</th>
-                                <th>Password</th>
                                 <th>PhoneNumber</th>
                                 <th>UserName</th>
                                 <th>Edit</th>
@@ -203,42 +202,40 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <th:block  th:each="user :${user}">
+                            <th:block th:each="user :${user}">
                                 <tr>
                                     <td th:text="${user.id}"></td>
                                     <td th:text="${user.account}"></td>
                                     <td th:text="${user.address}"></td>
                                     <td th:text="${user.avatar}"></td>
                                     <td th:text="${user.email}"></td>
-                                    <td th:text="${user.password}"></td>
                                     <td th:text="${user.phoneNumber}"></td>
                                     <td th:text="${user.username}"></td>
                                     <td>
+                                        <button type="submit" onclick="editUser(this.id)" th:id="${user.id}"
+                                                class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModalView">Edit
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="submit" onclick="deleteUser(this.id)" th:id="${user.id}"
+                                                class="btn btn-warning" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModalView">Delete
+                                        </button>
+                                    </td>
+                                    <td>
                                         <button type="submit" onclick="viewUser(this.id)" th:id="${user.id}"
-                                                class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalView">Edit
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button>
-
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button>
-
+                                                class="btn btn-danger" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModalView">View
                                         </button>
                                     </td>
                                 </tr>
-
                             </th:block>
-
-
                             </tbody>
                             <tfoot>
-
-
                             </tfoot>
                         </table>
+
 
                     </div>
                 </div>
@@ -270,7 +267,39 @@
 <script src="/../templateAdmin/js/scripts.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
+    function addNewUser() {
+        let account = $('#accountUser').val();
+        let address = $('#addressUser').val();
+        let avatar = $('#avatarUser').val();
+        let email = $('#eamilUser').val();
+        let phone = $('#phoneUser').val();
+        let username = $('#usernameUser').val();
+        let user = {
+            account: account,
+            address: address,
+            avatar: avatar,
+            email: email,
+            phoneNumber: phone,
+            username: username,
+        };
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            data: JSON.stringify(user),
+            url: "/admin",
+            success: function () {
+                console.log("add success");
+                successHandler();
+            }
+        });
+        event.preventDefault();
+    }
+    function successHandler(){
 
+    }
 </script>
 </body>
 </html>
