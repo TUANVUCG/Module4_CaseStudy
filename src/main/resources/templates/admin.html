@@ -298,6 +298,22 @@
         event.preventDefault();
     }
     function successHandler(){
+        $.ajax({
+            type: "get",
+            url: "/admin",
+            success:function (){
+                let content ='<tr>\n'+
+                    '<th>Id</th>\n'+
+                    '<th>Account</th>\n'+
+                    '<th>Address</th>\n'+
+                    '<th>Avatar</th>\n'+
+                    '<th>Email</th>\n'+
+                    ',<th>phoneNumber</th>\n'+
+                    '<th>userName</th>\n'+
+                    '</tr>';
+
+            }
+        })
 
     }
 </script>
