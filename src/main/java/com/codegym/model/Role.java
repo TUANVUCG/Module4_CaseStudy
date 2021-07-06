@@ -11,8 +11,6 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Role {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)

@@ -39,16 +39,25 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView("/index");
         return modelAndView;
     }
+    @GetMapping("/view")
+    public ModelAndView showView() {
+        ModelAndView modelAndView = new ModelAndView("/view");
+        return modelAndView;
+    }
+    @GetMapping("/product/{id}")
+    public ResponseEntity<?> getListProduct(@PathVariable Long id) {
+        return new ResponseEntity<>(productService.findById(id), HttpStatus.OK);
+    }
 
     @GetMapping("/cart")
     public ResponseEntity<Iterable<Items>> getItemsCart() {
         return new ResponseEntity<>(itemsService.findItemsByCart(Long.valueOf(1)), HttpStatus.OK);
     }
 
-    @GetMapping("/product/{id}")
-    public ModelAndView getProduct(@PathVariable Long id) {
-        ModelAndView modelAndView = new ModelAndView("/view");
-        modelAndView.addObject("product", productService.findById(id));
-        return modelAndView;
-    }
+//    @GetMapping("/product/{id}")
+//    public ModelAndView getProduct(@PathVariable Long id) {
+//        ModelAndView modelAndView = new ModelAndView("/view");
+//        modelAndView.addObject("product", productService.findById(id));
+//        return modelAndView;
+//    }
 }
