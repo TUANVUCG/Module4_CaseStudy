@@ -41,7 +41,7 @@ public class ItemsService implements IItemsService {
     }
 
     @Override
-    public Page<Items> findItemsByCart(Long cartId, Pageable pageable) {
-        return itemsRepository.findItemsByCart(cartId,pageable);
+    public Iterable<Items> findItemsByCart(Long cartId) {
+        return itemsRepository.findItemsByCart(cartId);
     }
 }
