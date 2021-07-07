@@ -254,7 +254,6 @@
                     <div class="text-muted">Copyright &copy; Your Website 2021</div>
                     <div>
                         <a href="#">Privacy Policy</a>
-                        &middot;
                         <a href="#">Terms &amp; Conditions</a>
                     </div>
                 </div>
@@ -394,33 +393,33 @@
 
     }
 
-    // function deleteUser() {
-    //     $.ajax({
-    //         headers:{
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         },
-    //         type :"DELETE",
-    //         url:"/admin/list"+id,
-    //         success:function (user){
-    //             let content = '<tr>\n' +
-    //                 '<th>Id</th>\n' +
-    //                 '<th>Account</th>\n' +
-    //                 '<th>Address</th>\n' +
-    //                 '<th>Avatar</th>\n' +
-    //                 '<th>Email</th>\n' +
-    //                 ',<th>phoneNumber</th>\n' +
-    //                 '<th>userName</th>\n' +
-    //                 '</tr>';
-    //             for (let i = 0; i = user.length; i++) {
-    //                 content += getUser(user[i]);
-    //             }
-    //             document.getElementById('userList').innerHTML = content;
-    //         }
-    //
-    //
-    //     })
-    // }
+    function deleteUser() {
+        $.ajax({
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type :"DELETE",
+            url:"/admin/list"+id,
+            success:function (user){
+                let content = '<tr>\n' +
+                    '<th>Id</th>\n' +
+                    '<th>Account</th>\n' +
+                    '<th>Address</th>\n' +
+                    '<th>Avatar</th>\n' +
+                    '<th>Email</th>\n' +
+                    ',<th>phoneNumber</th>\n' +
+                    '<th>userName</th>\n' +
+                    '</tr>';
+                for (let i = 0; i = user.length; i++) {
+                    content += getUser(user[i]);
+                }
+                document.getElementById('userList').innerHTML = content;
+            }
+
+
+        })
+     }
     function deleteUser(){
 
     }
