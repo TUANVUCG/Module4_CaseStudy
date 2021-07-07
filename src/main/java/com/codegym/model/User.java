@@ -9,8 +9,6 @@ import java.util.Set;
 
 @Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
