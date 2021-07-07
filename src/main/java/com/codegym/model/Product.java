@@ -25,6 +25,10 @@ public class Product {
 
     private double quantity;
 
+    private double realPrice;
+
+    private double sold;
+
     @Column(columnDefinition = "text")
     private String img;
 
@@ -33,4 +37,8 @@ public class Product {
 
     @ManyToOne
     private Category category;
+
+    public double getRealPrice() {
+        return sellPrice-sale*1/100*sellPrice;
+    }
 }

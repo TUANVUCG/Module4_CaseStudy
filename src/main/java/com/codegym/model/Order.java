@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Data
@@ -23,5 +24,6 @@ public class Order {
 
     @ManyToOne
     private User user;
+
 
 }
