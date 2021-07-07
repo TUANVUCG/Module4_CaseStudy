@@ -13,10 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.xml.transform.OutputKeys;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
 
     @Autowired
@@ -24,14 +25,14 @@ public class ProductController {
 
 
     @PostMapping
-    public ResponseEntity<Product> createSmartphone(@RequestBody Product product) {
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
     }
 
     @GetMapping("/list")
-    public ModelAndView getAllSmartphonePage(Pageable pageable) {
-        ModelAndView modelAndView = new ModelAndView("/product/index");
-        modelAndView.addObject("smartphones", productService.findAll(pageable));
+    public ModelAndView getAllProduct(Pageable pageable) {
+        ModelAndView modelAndView = new ModelAndView("/index");
+        modelAndView.addObject("product", productService.findAll(pageable));
         return modelAndView;
     }
 
@@ -66,12 +67,17 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Product>> searchByCategory(@RequestParam Optional<String> q, @PageableDefault(size = 10) Pageable pageable ){
+    public ResponseEntity<Page<Product>> searchByName(@RequestParam Optional<String> q, @PageableDefault(size = 10) Pageable pageable ){
         if(!q.isPresent()){
             return new ResponseEntity<>(productService.findAll(pageable), HttpStatus.OK);
         }
         else {
-            return new ResponseEntity<>(productService.findAllByCategoryContaining(q.get(), pageable), HttpStatus.OK);
+            return new ResponseEntity<>(productService.findAllByNameContaining(q.get(), pageable), HttpStatus.OK);
         }
+    }
+
+    @GetMapping("/productList")
+    public ResponseEntity<?> findAllProduct(){
+        return new ResponseEntity<>(productService.findAll(),HttpStatus.OK);
     }
 }
