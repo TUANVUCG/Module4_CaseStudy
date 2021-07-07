@@ -2,10 +2,12 @@ package com.codegym.controller;
 
 import com.codegym.model.Cart;
 import com.codegym.model.Items;
+import com.codegym.model.Product;
 import com.codegym.service.items.IItemsService;
 import com.codegym.service.order.IOrderService;
 import com.codegym.service.product.IProductService;
 import com.codegym.service.user.IUserService;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -37,6 +39,11 @@ public class IndexController {
         return new ResponseEntity<>(productService.findAllProduct(), HttpStatus.OK);
     }
 
+    @GetMapping("xyz")
+    public ResponseEntity<?> getListProduc1() {
+        return new ResponseEntity<>(productService.getSold(), HttpStatus.OK);
+    }
+
     @GetMapping()
     public ModelAndView showIndex() {
         ModelAndView modelAndView = new ModelAndView("/index");
@@ -62,6 +69,7 @@ public class IndexController {
     public ResponseEntity<Iterable<Items>> getItemsCart() {
         return new ResponseEntity<>(itemsService.findItemsByCart(Long.valueOf(1)), HttpStatus.OK);
     }
+
 
 //    @GetMapping("/product/{id}")
 //    public ModelAndView getProduct(@PathVariable Long id) {

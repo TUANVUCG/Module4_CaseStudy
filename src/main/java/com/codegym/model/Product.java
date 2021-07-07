@@ -41,4 +41,6 @@ public class Product {
     public double getRealPrice() {
         return sellPrice-sale*1/100*sellPrice;
     }
+
+
 }

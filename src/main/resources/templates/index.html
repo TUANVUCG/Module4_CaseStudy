@@ -986,11 +986,12 @@
             success: function (data) {
                 let content = `<h4 class="header__cart-heading">
                                 Sản phẩm đã thêm
-                            </h4>`;
+                            </h4> <ul class="header__cart-list-item">`;
                 for (let i = 0; i < data.length; i++) {
                     content += getItemsCart(data[i]);
                 }
-                document.getElementById('list-items').innerHTML = content + `<a href="#" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>`;
+                document.getElementById('list-items').innerHTML = content + `</ul>
+<a href="#" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>`;
                 document.getElementById('quantity-items').innerText = data.length;
             }
         })
@@ -1003,11 +1004,12 @@
             success: function (data) {
                 let content = `<h4 class="header__cart-heading">
                                 Sản phẩm đã thêm
-                            </h4>`;
+                            </h4>
+                            <ul class="header__cart-list-item">`;
                 for (let i = 0; i < data.length; i++) {
                     content += getItemsCart(data[i]);
                 }
-                document.getElementById('list-items').innerHTML = content + `<a href="#" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>`;
+                document.getElementById('list-items').innerHTML = content + `</ul><a href="#" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>`;
                 document.getElementById('quantity-items').innerText = data.length;
             }
         })
@@ -1104,7 +1106,7 @@
 
     function getItemsCart(items) {
         return `
-                            <ul class="header__cart-list-item">
+
 
                                 <li class="header__cart-item">
                                     <img src="https://minhcaumart.vn/media/com_eshop/products/Sua-Tuoi-Tiet-Trung-Nguyen-Chat-Vinamilk-Khong-duong--1000ml-.jpg" alt="" class="header__cart-img">
@@ -1134,7 +1136,7 @@
                                     </div>
                                 </li>
 
-                            </ul>`
+                            `
     }
 
     function getDetailProduct(id) {
