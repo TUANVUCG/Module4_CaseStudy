@@ -39,21 +39,17 @@ public class IndexController {
         return new ResponseEntity<>(productService.findAllProduct(), HttpStatus.OK);
     }
 
-    @GetMapping("xyz")
-    public ResponseEntity<?> getListProduc1() {
-        return new ResponseEntity<>(productService.getSold(), HttpStatus.OK);
-    }
 
     @GetMapping()
     public ModelAndView showIndex() {
         ModelAndView modelAndView = new ModelAndView("/index");
         return modelAndView;
     }
-    @GetMapping("/view")
-    public ModelAndView showView() {
-        ModelAndView modelAndView = new ModelAndView("/view");
-        return modelAndView;
-    }
+//    @GetMapping("/view")
+//    public ModelAndView showView() {
+//        ModelAndView modelAndView = new ModelAndView("/view");
+//        return modelAndView;
+//    }
 
     @DeleteMapping ("/delete-items/{id}")
     public ResponseEntity<?> deleteItems(@PathVariable Long id) {
