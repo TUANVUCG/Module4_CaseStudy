@@ -216,6 +216,73 @@
         </div>
     </div>
 </div>
+<!--Modal delete user-->
+<div class="modal fade" id="deleteUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Are you fucking sure ?</h5></b>
+                <input type="hidden" >
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" id="delete-user" class="btn btn-danger ">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Edit User -->
+
+<div class="modal fade" id="editUser" tabindex="-1" aria-labelledby="font" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="font">Edit Product</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Account</label>
+                        <input type="email" class="form-control" id="editAccount" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Address</label>
+                        <input type="text" class="form-control" id="editAddress">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Avatar</label>
+                        <input type="text" class="form-control" id="editAvatar">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="text" class="form-control" id="editEmail">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">PassWord</label>
+                        <input type="text" class="form-control" id="editPassword">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="editPhoneNumber">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">User Name</label>
+                        <input type="text" class="form-control" id="editUserName">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="updateUser" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <!--Show Product-->
 <script>
@@ -446,11 +513,13 @@
 
     <!--showUser-->
     function showList() {
+        $('#editUser').modal('hide');
+        $('#deleteUser').modal('hide');
         $.ajax({
             type: "GET",
             url: "/admin",
             success: function (data) {
-                let content =  `<div class="btn btn-primary">\n' +
+                let content = '<div class="btn btn-primary">\n' +
                     '                            <button onclick=" showForm()" class="btn btn-primary">Add New User</button>\n' +
                     '                            <span class="iconify" data-icon="ion-person-add" data-inline="false"></span>\n' +
                     '                        </div>' +
@@ -465,7 +534,7 @@
                     '<th>Edit</th>' +
                     '<th>Delete</th>' +
                     '<th>View</th>'
-                    '</tr>`;
+                '</tr>';
                 for (let i = 0; i < data.length; i++) {
                     content += getUser(data[i]);
                 }
@@ -485,20 +554,22 @@
                                     <td > ${user.phoneNumber}</td>
                                     <td > ${user.username}</td>
                                     <td>
-                                        <button type="submit" onclick="editUser(this.id)" th:id="${user.id}"
+                                        <button type="button" onclick="editUser(this.id)" id="${user.id}"
                                                 class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModalView">Edit
+                                                data-bs-target="#editUser">Edit
                                         </button>
                                     </td>
+
                                     <td>
-                                        <button type="submit" onclick="deleteUser(this.id)" th:id="${user.id}"
-                                                class="btn btn-warning" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModalView">Delete
-                                        </button>
+                                       <button onclick="deleteUser(this.id)" type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#deleteUser" id="${user.id}">
+                    Delete
+                </button>
                                     </td>
+
                                     <td>
                                         <button type="submit" onclick="viewUser(this.id)" th:id="${user.id}"
-                                                class="btn btn-danger" data-bs-toggle="modal"
+                                                class="btn btn-danger" data-bs-toggle="modal" id="modal"
                                                 data-bs-target="#exampleModalView">View
                                         </button>
                                     </td>
@@ -552,7 +623,7 @@
         let username = $('#usernameUser').val();
         let newUser = {
             account: account,
-            password :password,
+            password: password,
             address: address,
             avatar: avatar,
             email: email,
@@ -571,7 +642,70 @@
         })
 
     }
-<!--Delete-->
+    <!-- delete User-->
+    function deleteUser(id){
+$('#delete-user').click(function (event){
+    $.ajax({
+        headers:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type:' delete',
+        url:"/admin/"+id,
+        data:JSON.stringify(id),
+        success:showList
+    });
+event.preventDefault()
+})
+    }
+<!--Edit User-->
+    function editUser(id) {
+        $.ajax({
+            type: "get",
+            url: "/admin/" + id,
+            success: function (data) {
+                $('#editAccount').val(data.account)
+                $('#editAddress').val(data.address)
+                $('#editAvatar').val(data.avatar)
+                $('#editEmail').val(data.email)
+                $('#editPassword').val(data.password)
+                $('#editPhoneNumber').val(data.phoneNumber)
+                $('#editUserName').val(data.username)
+
+                $('#updateUser').click(function (event) {
+                    let account = $('#editAccount').val();
+                    let address = $('#editAddress').val();
+                    let avatar = $('#editAvatar').val()
+                    let email = $('#editEmail').val()
+                    let password = $('#editPassword').val()
+                    let phoneNumber = $('#editPhoneNumber').val()
+                    let userName = $('#editUserName').val()
+
+                    let updateUser = {
+                        account: account,
+                        address: address,
+                        avatar: avatar,
+                        email: email,
+                        password: password,
+                        phoneNumber: phoneNumber,
+                        username: userName,
+
+                    }
+                    $.ajax({
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        type: 'PUT',
+                        data: JSON.stringify(updateUser),
+                        url: "/admin/" + id,
+                        success: showList
+                    });
+                    event.preventDefault();
+                });
+            }
+        })
+    }
 
 </script>
 <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
