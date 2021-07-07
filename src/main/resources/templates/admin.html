@@ -221,6 +221,8 @@
     function showProduct() {
         $('#edit').modal('hide');
         $('#delete').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
         $.ajax({
             type: "get",
             url: "/products/productList",

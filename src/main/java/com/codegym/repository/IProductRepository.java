@@ -16,5 +16,4 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
 
     @Query("select p from Product as p group by p.id")
     Iterable<Product> findAllProduct();
-
 }
