@@ -450,7 +450,7 @@
             type: "GET",
             url: "/admin",
             success: function (data) {
-                let content = '  <div class="btn btn-primary">\n' +
+                let content =  `<div class="btn btn-primary">\n' +
                     '                            <button onclick=" showForm()" class="btn btn-primary">Add New User</button>\n' +
                     '                            <span class="iconify" data-icon="ion-person-add" data-inline="false"></span>\n' +
                     '                        </div>' +
@@ -465,7 +465,7 @@
                     '<th>Edit</th>' +
                     '<th>Delete</th>' +
                     '<th>View</th>'
-                '</tr>';
+                    '</tr>`;
                 for (let i = 0; i < data.length; i++) {
                     content += getUser(data[i]);
                 }
@@ -507,7 +507,7 @@
     }
 
     function showForm() {
-        let formCreate = `<form>
+        let formUser = `<form>
         <div class="mb-3">
   <label for="accountUser" class="form-label">Account</label>
   <input type="text" class="form-control" id="accountUser" placeholder="Account">
@@ -519,6 +519,10 @@
  <div class="mb-3">
   <label for="avatarUser" class="form-label">Avatar</label>
   <input type="text" class="form-control" id="avatarUser" placeholder="Avatar">
+</div>
+<div class="mb-3">
+  <label for="avatarUser" class="form-label">Avatar</label>
+  <input type="text" class="form-control" id="passUser" placeholder="Avatar">
 </div>
  <div class="mb-3">
   <label for="emailUser" class="form-label">Email</label>
@@ -532,14 +536,15 @@
   <label for="usernameUser" class="form-label">Username</label>
   <input type="text" class="form-control" id="usernameUser" placeholder="Username">
 </div>
-<button onclick="addNewUser()" type="submit" class="btn btn-primary">Create</button>
+<button onclick="addNewUser()" type="button" class="btn btn-primary">Create</button>
    </form>     `
-        document.getElementById('userList').innerHTML = formCreate
+        document.getElementById('userList').innerHTML = formUser
 
     }
 
     function addNewUser() {
         let account = $('#accountUser').val();
+        let password = $('#passUser').val();
         let address = $('#addressUser').val();
         let avatar = $('#avatarUser').val();
         let email = $('#emailUser').val();
@@ -547,6 +552,7 @@
         let username = $('#usernameUser').val();
         let newUser = {
             account: account,
+            password :password,
             address: address,
             avatar: avatar,
             email: email,
@@ -563,8 +569,9 @@
             url: "/admin",
             success: showList
         })
-    }
 
+    }
+<!--Delete-->
 
 </script>
 <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
