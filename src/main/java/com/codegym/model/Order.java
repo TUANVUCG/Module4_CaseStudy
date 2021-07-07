@@ -8,6 +8,8 @@ import javax.persistence.*;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,5 +23,6 @@ public class Order {
 
     @ManyToOne
     private User user;
+
 
 }

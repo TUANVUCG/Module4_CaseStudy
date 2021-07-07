@@ -67,12 +67,12 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Product>> searchByCategory(@RequestParam Optional<String> q, @PageableDefault(size = 10) Pageable pageable ){
+    public ResponseEntity<Page<Product>> searchByName(@RequestParam Optional<String> q, @PageableDefault(size = 10) Pageable pageable ){
         if(!q.isPresent()){
             return new ResponseEntity<>(productService.findAll(pageable), HttpStatus.OK);
         }
         else {
-            return new ResponseEntity<>(productService.findAllByCategoryContaining(q.get(), pageable), HttpStatus.OK);
+            return new ResponseEntity<>(productService.findAllByNameContaining(q.get(), pageable), HttpStatus.OK);
         }
     }
 
