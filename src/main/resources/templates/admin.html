@@ -507,33 +507,33 @@
     }
 
     function showForm() {
-        let formCreate = `
+        let formCreate = `<form>
         <div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Email address</label>
-  <input type="text" class="form-control" id="accountUser" placeholder="name@example.com">
+  <label for="accountUser" class="form-label">Account</label>
+  <input type="text" class="form-control" id="accountUser" placeholder="Account">
 </div>
  <div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Email address</label>
-  <input type="text" class="form-control" id="addressUser" placeholder="name@example.com">
+  <label for="addressUser" class="form-label">Address</label>
+  <input type="text" class="form-control" id="addressUser" placeholder="Address">
 </div>
  <div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Email address</label>
-  <input type="text" class="form-control" id="avatarUser" placeholder="name@example.com">
+  <label for="avatarUser" class="form-label">Avatar</label>
+  <input type="text" class="form-control" id="avatarUser" placeholder="Avatar">
 </div>
  <div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Email address</label>
-  <input type="text" class="form-control" id="emailUser" placeholder="name@example.com">
+  <label for="emailUser" class="form-label">Email</label>
+  <input type="text" class="form-control" id="emailUser" placeholder="Email">
 </div>
  <div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Email address</label>
-  <input type="text" class="form-control" id="phoneUser" placeholder="name@example.com">
+  <label for="phoneUser" class="form-label">PhoneNumber</label>
+  <input type="text" class="form-control" id="phoneUser" placeholder="PhoneNumber">
 </div>
  <div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Email address</label>
-  <input type="text" class="form-control" id="usernameUser" placeholder="name@example.com">
+  <label for="usernameUser" class="form-label">Username</label>
+  <input type="text" class="form-control" id="usernameUser" placeholder="Username">
 </div>
-
-        `
+<button onclick="addNewUser()" type="submit" class="btn btn-primary">Create</button>
+   </form>     `
         document.getElementById('userList').innerHTML = formCreate
 
     }
@@ -545,7 +545,7 @@
         let email = $('#emailUser').val();
         let phone = $('#phoneUser').val();
         let username = $('#usernameUser').val();
-        let user = {
+        let newUser = {
             account: account,
             address: address,
             avatar: avatar,
@@ -559,14 +559,10 @@
                 'Content-Type': 'application/json'
             },
             type: "POST",
-            data: JSON.stringify(user),
-            url: "/admin/list",
-            success: function () {
-                console.log("add success");
-                showList();
-            }
-        });
-        event.preventDefault();
+            data: JSON.stringify(newUser),
+            url: "/admin",
+            success: showList
+        })
     }
 
 
