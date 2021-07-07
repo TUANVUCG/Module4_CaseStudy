@@ -16,15 +16,12 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @ModelAttribute("user")
-    public Iterable<User> users() {
-        return userService.findAll();
-    }
+
 
     @GetMapping("/list")
     public ModelAndView showUser() {
         ModelAndView modelAndView = new ModelAndView("/admin");
-        modelAndView.addObject("user", users());
+        modelAndView.addObject("user", userService.findAll());
         return modelAndView;
     }
     @GetMapping("")
