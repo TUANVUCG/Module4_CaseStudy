@@ -10,12 +10,18 @@ import org.springframework.stereotype.Service;
 import java.security.SignatureException;
 import java.util.Date;
 
+// Sinh ra đoạn token
+// Mã hóa header, pay load và signature
 @Service
 public class JwtService {
+    // Mã bí mật, đặt là gì cũng được
     private static final String SECRET_KEY = "123456789";
+    // Thời gian hết hạn
     private static final long EXPIRE_TIME = 86400000000L;
+    // Ghi log
     private static final Logger logger = LoggerFactory.getLogger(JwtService.class.getName());
 
+    // Sinh ra token khi login thành công
     public String generateTokenLogin(Authentication authentication) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         return Jwts.builder()
@@ -23,10 +29,11 @@ public class JwtService {
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + EXPIRE_TIME * 1000))
                 .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+                // thực thi tất cả đoạn trên và sinh ra đoạn token
                 .compact();
     }
 
-    // Kiem tra xem token he thong sinh ra co hop le khong
+    // Kiểm tra token hệ thống sinh ra có hợp lệ không
     public boolean validateJwtToken(String authToken) throws SignatureException {
         try {
             Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(authToken);
@@ -44,6 +51,7 @@ public class JwtService {
         return false;
     }
 
+    // Giải mã ngược đoạn token truyền đi để lấy ra userName;
     public String getUserNameFromJwtToken(String token) {
         String userName = Jwts.parser()
                 .setSigningKey(SECRET_KEY)
@@ -51,5 +59,4 @@ public class JwtService {
                 .getBody().getSubject();
         return userName;
     }
-
 }

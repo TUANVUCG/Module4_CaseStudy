@@ -1,5 +1,6 @@
 package com.codegym.service.user;
 
+import com.codegym.model.Product;
 import com.codegym.model.User;
 import com.codegym.model.UserPrincipal;
 import com.codegym.repository.IUserRepository;
@@ -24,7 +25,6 @@ public class UserService implements IUserService {
     public Iterable<User> findAll() {
         return userRepository.findAll();
     }
-
 
     @Override
     public Optional<User> findById(Long id) {
@@ -53,4 +53,5 @@ public class UserService implements IUserService {
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
 }

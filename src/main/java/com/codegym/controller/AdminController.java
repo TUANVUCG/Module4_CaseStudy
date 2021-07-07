@@ -13,8 +13,10 @@ public class AdminController {
         return new ModelAndView("/admin");
     }
 
-    @GetMapping("/view")
-    public ModelAndView view(){
-        return new ModelAndView("/view");
+    @GetMapping("/loginAndRegis")
+    public ModelAndView login(){
+        return new ModelAndView("loginAndRegis");
     }
+
+
 }

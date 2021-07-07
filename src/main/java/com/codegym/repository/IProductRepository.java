@@ -10,8 +10,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IProductRepository extends JpaRepository<Product, Long> {
+
     Page<Product> findAllByNameContaining(String category , Pageable pageable);
 
+    @Query("select p from Product as p group by p.id")
     Page<Product> findAll(Pageable pageable);
 
     @Query("select p from Product as p group by p.id")

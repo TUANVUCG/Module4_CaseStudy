@@ -1,8 +1,6 @@
 package com.codegym.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -22,5 +20,5 @@ public class Items {
     private Cart cart;
 
     @ManyToOne
-    private Order order;
+    private Orders orders;
 }
