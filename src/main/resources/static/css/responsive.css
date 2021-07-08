@@ -1,6 +1,6 @@
 /* Mobile & Tablet */
 @media (max-width: 1023px) {
-    
+
 
     .hide-on-mobile-tablet {
         display: none;
@@ -30,18 +30,18 @@
         display: none;
     }
 
-   .header__sort-bar {
-       display: flex;
-   }
+    .header__sort-bar {
+        display: flex;
+    }
 
-   .app__content {
-       padding-top: 8px;
-   }
+    .app__content {
+        padding-top: 8px;
+    }
 
-   .header__navbar-mobile-btn {
-       display: block;
-   }
-   
+    .header__navbar-mobile-btn {
+        display: block;
+    }
+
 }
 
 /* Tablet */
@@ -59,7 +59,7 @@
     .header__cart {
         width: 80px;
         text-align: right;
-        
+
     }
 
     .header__navbar-mobile-btn {
@@ -127,7 +127,7 @@
         --height: 28px;
         font-size: 1.6rem;
         min-width: 36px;
-        
+
     }
 
     .app__content {
