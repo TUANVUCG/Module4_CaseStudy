@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Collection;
+
 
 @Entity
 @Data
@@ -17,12 +19,12 @@ public class Orders {
 
     private String day;
 
-    private String total;
-
     private int status;
 
     @ManyToOne
     private User user;
 
+    @ManyToMany
+    private Collection<Product> products;
 
 }

@@ -351,6 +351,7 @@
         let email = $('#emailLogin').val();
         let account = $('#accountLogin').val();
         let password = $('#passwordLogin').val();
+
         let newUser = {
             username: username,
             phoneNumber: phoneNumber,
@@ -374,12 +375,11 @@
     }
 </script>
 
-
 <!--Sign in-->
 <script>
     function signIn() {
-        let usernameSignIn = $('#usernameSignIn');
-        let passwordSignIn = $('#passwordSignIn');
+        let usernameSignIn = $('#usernameSignIn').val();
+        let passwordSignIn = $('#passwordSignIn').val();
         let newUser = {
             username: usernameSignIn,
             passwordSignIn : passwordSignIn,

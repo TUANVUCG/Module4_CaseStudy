@@ -1,12 +1,16 @@
 package com.codegym.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Data
-public class Items {
+@NoArgsConstructor
+@AllArgsConstructor
+public class  Items {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,6 +23,6 @@ public class Items {
     @ManyToOne
     private Cart cart;
 
-    @ManyToOne
-    private Orders orders;
+    private double total;
+
 }

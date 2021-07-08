@@ -16,8 +16,8 @@ public class OrderController {
     private IOrderService orderService;
 
     @PostMapping("add-order")
-    public ResponseEntity<?> addItems(Orders orders){
-        return new ResponseEntity<>(orderService.save(orders), HttpStatus.CREATED);
+    public ResponseEntity<?> addItems(Orders order){
+        return new ResponseEntity<>(orderService.save(order), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/remove-order/{id}")
@@ -31,13 +31,13 @@ public class OrderController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateItems(@PathVariable Long id, @RequestBody Orders orders) {
+    public ResponseEntity<?> updateItems(@PathVariable Long id, @RequestBody Orders order) {
         Optional<Orders> orderOptional = orderService.findById(id);
         if (!orderOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        orders.setId(orderOptional.get().getId());
-        return new ResponseEntity<>(orderService.save(orders), HttpStatus.OK);
+        order.setId(orderOptional.get().getId());
+        return new ResponseEntity<>(orderService.save(order), HttpStatus.OK);
     }
 
 }

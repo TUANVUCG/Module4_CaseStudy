@@ -2,10 +2,15 @@ package com.codegym.controller;
 
 import com.codegym.model.Cart;
 import com.codegym.model.Items;
+import com.codegym.model.Product;
+import com.codegym.repository.ICartRepository;
+import com.codegym.service.cart.ICartService;
+import com.codegym.service.category.ICategoryService;
 import com.codegym.service.items.IItemsService;
 import com.codegym.service.order.IOrderService;
 import com.codegym.service.product.IProductService;
 import com.codegym.service.user.IUserService;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -31,6 +36,9 @@ public class IndexController {
     @Autowired
     private IProductService productService;
 
+    @Autowired
+    private ICategoryService categoryService;
+
 
     @GetMapping("/product")
     public ResponseEntity<?> getListProduct() {
@@ -42,10 +50,19 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView("/index");
         return modelAndView;
     }
-    @GetMapping("/view")
+    @GetMapping("/view/**")
     public ModelAndView showView() {
         ModelAndView modelAndView = new ModelAndView("/view");
         return modelAndView;
+    }
+    @PostMapping ("/view/{id}")
+    public ResponseEntity<?> getProduct(@PathVariable Long id) {
+        return new ResponseEntity<>(productService.findById(id),HttpStatus.OK);
+    }
+
+    @PostMapping ("/add-items")
+    public ResponseEntity<Items> getProduct(@RequestBody Items items) {
+        return new ResponseEntity<>(itemsService.save(items),HttpStatus.CREATED);
     }
 
     @DeleteMapping ("/delete-items/{id}")
@@ -58,15 +75,18 @@ public class IndexController {
         return new ResponseEntity<>(productService.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/cart")
-    public ResponseEntity<Iterable<Items>> getItemsCart() {
-        return new ResponseEntity<>(itemsService.findItemsByCart(Long.valueOf(1)), HttpStatus.OK);
+    @GetMapping("/order")
+    public ModelAndView showOrder() {
+        ModelAndView modelAndView = new ModelAndView("/cart");
+        return modelAndView;
     }
-
-//    @GetMapping("/product/{id}")
-//    public ModelAndView getProduct(@PathVariable Long id) {
-//        ModelAndView modelAndView = new ModelAndView("/view");
-//        modelAndView.addObject("product", productService.findById(id));
-//        return modelAndView;
+//    @GetMapping("/cart")
+//    public ResponseEntity<> getItemsCart() {
+//        return new ResponseEntity<>(itemsService.findItemsByCart(Long.valueOf(1)), HttpStatus.OK);
 //    }
+
+    @GetMapping("/category")
+    public ResponseEntity<?> getListCategory() {
+        return new ResponseEntity<>(categoryService.findAll(),HttpStatus.OK);
+    }
 }

@@ -23,8 +23,8 @@ public class OrderService implements IOrderService{
     }
 
     @Override
-    public Orders save(Orders orders) {
-        return orderRepository.save(orders);
+    public Orders save(Orders order) {
+        return orderRepository.save(order);
     }
 
     @Override
