@@ -60,6 +60,11 @@ public class IndexController {
         return new ResponseEntity<>(productService.findById(id),HttpStatus.OK);
     }
 
+    @PostMapping ("/add-items")
+    public ResponseEntity<Items> getProduct(@RequestBody Items items) {
+        return new ResponseEntity<>(itemsService.save(items),HttpStatus.CREATED);
+    }
+
     @DeleteMapping ("/delete-items/{id}")
     public ResponseEntity<?> deleteItems(@PathVariable Long id) {
         itemsService.remove(id);
@@ -70,11 +75,15 @@ public class IndexController {
         return new ResponseEntity<>(productService.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/cart")
-    public ResponseEntity<Iterable<Items>> getItemsCart() {
-        return new ResponseEntity<>(itemsService.findItemsByCart(Long.valueOf(1)), HttpStatus.OK);
+    @GetMapping("/order")
+    public ModelAndView showOrder() {
+        ModelAndView modelAndView = new ModelAndView("/cart");
+        return modelAndView;
     }
-
+//    @GetMapping("/cart")
+//    public ResponseEntity<> getItemsCart() {
+//        return new ResponseEntity<>(itemsService.findItemsByCart(Long.valueOf(1)), HttpStatus.OK);
+//    }
 
     @GetMapping("/category")
     public ResponseEntity<?> getListCategory() {

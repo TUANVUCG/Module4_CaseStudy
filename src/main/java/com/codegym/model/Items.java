@@ -10,19 +10,19 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Items {
+public class  Items {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private double quantity;
 
-    private double total;
-
     @OneToOne
     private Product product;
 
     @ManyToOne
     private Cart cart;
+
+    private double total;
 
 }
