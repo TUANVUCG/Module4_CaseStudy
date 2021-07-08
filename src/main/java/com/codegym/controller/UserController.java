@@ -4,6 +4,7 @@ import com.codegym.model.Category;
 import com.codegym.model.User;
 import com.codegym.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -64,4 +65,5 @@ public class UserController {
         }
         return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
     }
+
 }
