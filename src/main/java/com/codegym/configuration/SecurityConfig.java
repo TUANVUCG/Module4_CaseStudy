@@ -4,6 +4,7 @@ import com.codegym.model.CustomSuccessHandler;
 import com.codegym.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+@Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
@@ -50,13 +52,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/**", "/login", "/index", "/view").permitAll()
+                .antMatchers("/**").permitAll()
                 .antMatchers("/view", "/index")
                 .access("hasRole('USER')")
                 .antMatchers("/admin")
                 .access("hasRole('ADMIN')")
                 .anyRequest().authenticated()
-                .and().formLogin().successHandler(new CustomSuccessHandler())
+                .and().formLogin()
+                .loginPage("/loginAndRegis")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/shopee")
+                .failureUrl("/error")
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/403")
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

@@ -293,11 +293,11 @@
         <h2>Welcome to Shopee, hihi</h2>
         <label>
             <span>USERNAME</span>
-            <input type="text" id="usernameSignIn"/>
+            <input name="username" type="text" id="usernameSignIn"/>
         </label>
         <label>
             <span>PASSWORD</span>
-            <input type="password" id="passwordSignIn"/>
+            <input name="password" type="password" id="passwordSignIn"/>
         </label>
         <button onclick="signIn()" class="submit">Sign In</button>
     </div>
@@ -380,7 +380,6 @@
     function signIn() {
         let usernameSignIn = $('#usernameSignIn');
         let passwordSignIn = $('#passwordSignIn');
-
         let newUser = {
             username: usernameSignIn,
             passwordSignIn : passwordSignIn,
