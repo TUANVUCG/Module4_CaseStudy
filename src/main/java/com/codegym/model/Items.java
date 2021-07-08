@@ -17,6 +17,8 @@ public class Items {
 
     private double quantity;
 
+    private double total;
+
     @OneToOne
     private Product product;
 

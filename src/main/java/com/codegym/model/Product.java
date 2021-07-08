@@ -42,5 +42,4 @@ public class Product {
         return sellPrice-sale*1/100*sellPrice;
     }
 
-
 }

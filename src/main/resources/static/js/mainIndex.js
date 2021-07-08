@@ -1,3 +1,4 @@
+// Product
 $(document).ready(function () {
     $.ajax({
         type: "get",
@@ -11,79 +12,6 @@ $(document).ready(function () {
         }
     })
 });
-$(document).ready(function () {
-    $.ajax({
-        type: "get",
-        url: "/shopee/cart",
-        success: function (data) {
-            let content = `<h4 class="header__cart-heading">
-                                Sản phẩm đã thêm
-                            </h4> <ul class="header__cart-list-item">`;
-            for (let i = 0; i < data.length; i++) {
-                content += getItemsCart(data[i]);
-            }
-            document.getElementById('list-items').innerHTML = content + `</ul>
-<a href="#" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>`;
-            document.getElementById('quantity-items').innerText = data.length;
-        }
-    })
-});
-
-function getListItems(){
-    $.ajax({
-        type: "get",
-        url: "/shopee/cart",
-        success: function (data) {
-            let content = `<h4 class="header__cart-heading">
-                                Sản phẩm đã thêm
-                            </h4>
-                            <ul class="header__cart-list-item">`;
-            for (let i = 0; i < data.length; i++) {
-                content += getItemsCart(data[i]);
-            }
-            document.getElementById('list-items').innerHTML = content + `</ul><a href="#" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>`;
-            document.getElementById('quantity-items').innerText = data.length;
-        }
-    })
-}
-
-$(document).ready(function () {
-    //-- Click on detail
-    $("ul.menu-items > li").on("click", function () {
-        $("ul.menu-items > li").removeClass("active");
-        $(this).addClass("active");
-    })
-
-    $(".attr,.attr2").on("click", function () {
-        var clase = $(this).attr("class");
-
-        $("." + clase).removeClass("active");
-        $(this).addClass("active");
-    })
-
-})
-
-function reduceQuantity() {
-    let now = $(".section > div > input").val();
-    if ($.isNumeric(now)) {
-        if (parseInt(now) - 1 > 0) {
-            now--;
-        }
-        $(".section > div > input").val(now);
-    } else {
-        $(".section > div > input").val("1");
-    }
-}
-
-function increaseQuantity() {
-    let now = $(".section > div > input").val();
-    if ($.isNumeric(now)) {
-        $(".section > div > input").val(parseInt(now) + 1);
-    } else {
-        $(".section > div > input").val("1");
-    }
-}
-
 function getProduct(product) {
     return `<div class="col l-2-4 m-4 c-6">
                         <div class="home-product-item" id="${product.id}" onclick="getDetailProduct(this.id)">
@@ -136,41 +64,6 @@ function getProduct(product) {
                             </div>`;
 }
 
-function getItemsCart(items) {
-    return `
-
-
-                                <li class="header__cart-item">
-                                    <img src="https://minhcaumart.vn/media/com_eshop/products/Sua-Tuoi-Tiet-Trung-Nguyen-Chat-Vinamilk-Khong-duong--1000ml-.jpg" alt="" class="header__cart-img">
-
-                                    <div class="header__cart-item-info">
-
-                                        <div class="header__cart-item-head">
-
-                                            <h5 class="header__cart-item-name">${items.product.name}</h5>
-                                            <div class="header__cart-item-price-wrap">
-                                                <span class="header__cart-item-price">${items.product.sellPrice}</span>
-                                                <span class="header__cart-item-multiply">x</span>
-                                                <span class="header__cart-item-qnt">${items.quantity}</span>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="header__cart-item-body">
-                                                <span class="header__cart-item-description">
-                                                    Phân loại: ${items.product.category.name}
-                                                </span>
-                                            <span class="header__cart-item-remote" id="${items.id}" onclick="deleteItems(this.id)">
-                                                    Xóa
-                                                </span>
-                                        </div>
-
-                                    </div>
-                                </li>
-
-                            `
-}
-
 function getDetailProduct(id) {
     $.ajax({
         type: "get",
@@ -183,15 +76,6 @@ function getDetailProduct(id) {
             document.getElementById("bootstrap-css").href = "//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
         }
 
-    })
-}
-
-function deleteItems(id){
-    $.ajax({
-        type: "delete",
-        url: "/shopee/delete-items/"+ id,
-
-        success: getListItems
     })
 }
 
@@ -255,3 +139,146 @@ function getProductById(product) {
         </div>
         </div>`
 }
+
+
+// Items
+$(document).ready(function () {
+    $.ajax({
+        type: "get",
+        url: "/shopee/cart",
+        success: function (data) {
+            let content = `<h4 class="header__cart-heading">
+                                Sản phẩm đã thêm
+                            </h4> <ul class="header__cart-list-item">`;
+            for (let i = 0; i < data.length; i++) {
+                content += getItemsCart(data[i]);
+            }
+            document.getElementById('list-items').innerHTML = content + `</ul>
+<a href="#" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>`;
+            document.getElementById('quantity-items').innerText = data.length;
+        }
+    })
+});
+
+function getListItems(){
+    $.ajax({
+        type: "get",
+        url: "/shopee/cart",
+        success: function (data) {
+            let content = `<h4 class="header__cart-heading">
+                                Sản phẩm đã thêm
+                            </h4>
+                            <ul class="header__cart-list-item">`;
+            for (let i = 0; i < data.length; i++) {
+                content += getItemsCart(data[i]);
+            }
+            document.getElementById('list-items').innerHTML = content + `</ul><a href="#" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>`;
+            document.getElementById('quantity-items').innerText = data.length;
+        }
+    })
+}
+function getItemsCart(items) {
+    return `
+
+
+                                <li class="header__cart-item">
+                                    <img src="https://minhcaumart.vn/media/com_eshop/products/Sua-Tuoi-Tiet-Trung-Nguyen-Chat-Vinamilk-Khong-duong--1000ml-.jpg" alt="" class="header__cart-img">
+
+                                    <div class="header__cart-item-info">
+
+                                        <div class="header__cart-item-head">
+
+                                            <h5 class="header__cart-item-name">${items.product.name}</h5>
+                                            <div class="header__cart-item-price-wrap">
+                                                <span class="header__cart-item-price">${items.product.sellPrice}</span>
+                                                <span class="header__cart-item-multiply">x</span>
+                                                <span class="header__cart-item-qnt">${items.quantity}</span>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="header__cart-item-body">
+                                                <span class="header__cart-item-description">
+                                                    Phân loại: ${items.product.category.name}
+                                                </span>
+                                            <span class="header__cart-item-remote" id="${items.id}" onclick="deleteItems(this.id)">
+                                                    Xóa
+                                                </span>
+                                        </div>
+
+                                    </div>
+                                </li>
+
+                            `
+}
+function deleteItems(id){
+    $.ajax({
+        type: "delete",
+        url: "/shopee/delete-items/"+ id,
+
+        success: getListItems
+    })
+}
+
+// Button view
+$(document).ready(function () {
+    //-- Click on detail
+    $("ul.menu-items > li").on("click", function () {
+        $("ul.menu-items > li").removeClass("active");
+        $(this).addClass("active");
+    })
+
+    $(".attr,.attr2").on("click", function () {
+        var clase = $(this).attr("class");
+
+        $("." + clase).removeClass("active");
+        $(this).addClass("active");
+    })
+
+})
+
+function reduceQuantity() {
+    let now = $(".section > div > input").val();
+    if ($.isNumeric(now)) {
+        if (parseInt(now) - 1 > 0) {
+            now--;
+        }
+        $(".section > div > input").val(now);
+    } else {
+        $(".section > div > input").val("1");
+    }
+}
+
+function increaseQuantity() {
+    let now = $(".section > div > input").val();
+    if ($.isNumeric(now)) {
+        $(".section > div > input").val(parseInt(now) + 1);
+    } else {
+        $(".section > div > input").val("1");
+    }
+}
+
+// Category
+$(document).ready(function () {
+    $.ajax({
+        type: "get",
+        url: "/shopee/category",
+        success: function (data) {
+            let content = "";
+            for (let i = 0; i < data.length; i++) {
+                content += getListCategory(data[i]);
+
+            }
+            document.getElementById('list-category').innerHTML = content;
+        }
+    })
+});
+
+function getListCategory(category){
+    return `<li className="category-item category-item--active">
+        <a href="#" className="category-item__link">
+            ${category.name}
+        </a>
+    </li>`
+}
+

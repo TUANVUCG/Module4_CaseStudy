@@ -3,6 +3,9 @@ package com.codegym.controller;
 import com.codegym.model.Cart;
 import com.codegym.model.Items;
 import com.codegym.model.Product;
+import com.codegym.repository.ICartRepository;
+import com.codegym.service.cart.ICartService;
+import com.codegym.service.category.ICategoryService;
 import com.codegym.service.items.IItemsService;
 import com.codegym.service.order.IOrderService;
 import com.codegym.service.product.IProductService;
@@ -33,23 +36,29 @@ public class IndexController {
     @Autowired
     private IProductService productService;
 
+    @Autowired
+    private ICategoryService categoryService;
+
 
     @GetMapping("/product")
     public ResponseEntity<?> getListProduct() {
         return new ResponseEntity<>(productService.findAllProduct(), HttpStatus.OK);
     }
 
-
     @GetMapping()
     public ModelAndView showIndex() {
         ModelAndView modelAndView = new ModelAndView("/index");
         return modelAndView;
     }
-//    @GetMapping("/view")
-//    public ModelAndView showView() {
-//        ModelAndView modelAndView = new ModelAndView("/view");
-//        return modelAndView;
-//    }
+    @GetMapping("/view/**")
+    public ModelAndView showView() {
+        ModelAndView modelAndView = new ModelAndView("/view");
+        return modelAndView;
+    }
+    @PostMapping ("/view/{id}")
+    public ResponseEntity<?> getProduct(@PathVariable Long id) {
+        return new ResponseEntity<>(productService.findById(id),HttpStatus.OK);
+    }
 
     @DeleteMapping ("/delete-items/{id}")
     public ResponseEntity<?> deleteItems(@PathVariable Long id) {
@@ -67,10 +76,8 @@ public class IndexController {
     }
 
 
-//    @GetMapping("/product/{id}")
-//    public ModelAndView getProduct(@PathVariable Long id) {
-//        ModelAndView modelAndView = new ModelAndView("/view");
-//        modelAndView.addObject("product", productService.findById(id));
-//        return modelAndView;
-//    }
+    @GetMapping("/category")
+    public ResponseEntity<?> getListCategory() {
+        return new ResponseEntity<>(categoryService.findAll(),HttpStatus.OK);
+    }
 }
