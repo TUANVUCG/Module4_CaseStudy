@@ -205,7 +205,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" >Are you fucking sure ?</h5></b>
+                <h5 class="modal-title" >Are you sure ?</h5></b>
                 <input type="hidden" id="id-delete">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
@@ -215,6 +215,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    window.onload = function() {
+        showProduct()
+    };
+</script>
 
 <!--Show Product-->
 <script>
@@ -296,10 +302,6 @@
     <label for="exampleInputPassword1" class="form-label">Quantity</label>
     <input type="text" class="form-control" id="quantityCreate">
   </div>
-<!--  <div class="mb-3">-->
-<!--    <label for="exampleInputPassword1" class="form-label">Real Price</label>-->
-<!--    <input type="text" class="form-control" id="realPriceCreate">-->
-<!--  </div>-->
   <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Image</label>
     <input type="text" class="form-control" id="imageCreate">
@@ -332,7 +334,6 @@
             img: imageCreate,
             description: descriptionCreate,
         };
-
         $.ajax({
             headers: {
                 'Accept': 'application/json',

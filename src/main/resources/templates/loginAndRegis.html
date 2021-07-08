@@ -293,13 +293,13 @@
         <h2>Welcome to Shopee, hihi</h2>
         <label>
             <span>USERNAME</span>
-            <input type="email"/>
+            <input type="text" id="usernameSignIn"/>
         </label>
         <label>
             <span>PASSWORD</span>
-            <input type="password"/>
+            <input type="password" id="passwordSignIn"/>
         </label>
-        <button type="button" class="submit">Sign In</button>
+        <button onclick="signIn()" class="submit">Sign In</button>
     </div>
     <div class="sub-cont">
         <div class="img">
@@ -374,6 +374,32 @@
     }
 </script>
 
+
+<!--Sign in-->
+<script>
+    function signIn() {
+        let usernameSignIn = $('#usernameSignIn');
+        let passwordSignIn = $('#passwordSignIn');
+
+        let newUser = {
+            username: usernameSignIn,
+            passwordSignIn : passwordSignIn,
+        };
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            data: JSON.stringify(newUser),
+            url: "/api/login",
+            success : function (data){
+                localStorage.setItem("accessToken", data.accessToken);
+                window.location.href = "/";
+            }
+        })
+    }
+</script>
 <script>
     document.querySelector('.img__btn').addEventListener('click', function () {
         document.querySelector('.cont').classList.toggle('s--signup');
