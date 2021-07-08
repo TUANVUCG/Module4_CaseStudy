@@ -221,8 +221,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Are you fucking sure ?</h5></b>
-                <input type="hidden" >
+                <h5 class="modal-title">Are you sure ?</h5></b>
+                <input type="hidden">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                     <button type="button" id="delete-user" class="btn btn-danger ">Yes</button>
@@ -281,7 +281,6 @@
         </div>
     </div>
 </div>
-
 
 
 <!--Show Product-->
@@ -515,6 +514,8 @@
     function showList() {
         $('#editUser').modal('hide');
         $('#deleteUser').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
         $.ajax({
             type: "GET",
             url: "/admin",
@@ -592,7 +593,7 @@
   <input type="text" class="form-control" id="avatarUser" placeholder="Avatar">
 </div>
 <div class="mb-3">
-  <label for="avatarUser" class="form-label">Avatar</label>
+  <label for="avatarUser" class="form-label">Password</label>
   <input type="text" class="form-control" id="passUser" placeholder="Avatar">
 </div>
  <div class="mb-3">
@@ -642,23 +643,25 @@
         })
 
     }
+
     <!-- delete User-->
-    function deleteUser(id){
-$('#delete-user').click(function (event){
-    $.ajax({
-        headers:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        type:' delete',
-        url:"/admin/"+id,
-        data:JSON.stringify(id),
-        success:showList
-    });
-event.preventDefault()
-})
+    function deleteUser(id) {
+        $('#delete-user').click(function (event) {
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: 'delete',
+                url: "/admin/" + id,
+                data: JSON.stringify(id),
+                success: showList
+            });
+            event.preventDefault()
+        });
     }
-<!--Edit User-->
+
+    <!--Edit User-->
     function editUser(id) {
         $.ajax({
             type: "get",
