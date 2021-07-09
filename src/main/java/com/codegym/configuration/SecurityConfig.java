@@ -53,25 +53,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/**").permitAll()
-                .antMatchers("/view", "/index")
+                .antMatchers("/index")
                 .access("hasRole('USER')")
                 .antMatchers("/admin")
                 .access("hasRole('ADMIN')")
                 .anyRequest().authenticated()
-                .and().formLogin()
-                .loginPage("/loginAndRegis")
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .defaultSuccessUrl("/shopee")
-                .failureUrl("/error")
-                .and()
-                .exceptionHandling()
-                .accessDeniedPage("/403")
+                .and().formLogin().successHandler(new CustomSuccessHandler())
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         http.cors();
-        // Chặn truy cập chéo
         http.csrf().disable();
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .withUser("user")
+                .password("password")
+                .roles("USER");
     }
 }

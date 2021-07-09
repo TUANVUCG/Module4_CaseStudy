@@ -18,5 +18,4 @@ public class AdminController {
         return new ModelAndView("loginAndRegis");
     }
 
-
 }

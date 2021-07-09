@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 // Thực hiện việc đăng nhập
 @RestController
@@ -35,5 +36,10 @@ public class AuthController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User currentUser = userService.findByUsername(user.getUsername());
         return ResponseEntity.ok(new JwtResponse(currentUser.getId(), jwt, userDetails.getUsername(), userDetails.getAuthorities()));
+    }
+
+    @GetMapping("/login")
+    public ModelAndView login(){
+        return new ModelAndView("/loginAndRegis");
     }
 }
