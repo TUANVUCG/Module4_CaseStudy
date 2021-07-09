@@ -4,9 +4,7 @@ $(document).ready(function () {
         type: "get",
         url: "/shopee/product",
         success: function (data){
-            console.log(data)
             getListPagination(data)
-
         }
 
     })
@@ -19,6 +17,18 @@ function getPagination(pageSize) {
                             </span>
                         </li>`
 }
+
+function findProductByCategory(category) {
+    $.ajax({
+        type: "get",
+        url: "/shopee/product/category/" + category,
+        success: function (data){
+            getListPagination(data)
+        }
+
+    })
+}
+
 
 function changePagination(page) {
     let p = page - 1
@@ -60,7 +70,7 @@ function getProduct(product) {
     return `<div class="col l-2-4 m-4 c-6">
                         <a class="home-product-item" id="${product.id}" href="/shopee/view/${product.id}">
                                     <div class="home-product-item__img"
-                                         style="background-image: url(https://minhcaumart.vn/media/com_eshop/products/Sua-Tuoi-Tiet-Trung-Nguyen-Chat-Vinamilk-Khong-duong--1000ml-.jpg);">
+                                         style="background-image: url(${product.img});">
                                     </div>
 
                                     <h4 class="home-product-item__name">
@@ -165,7 +175,7 @@ function getListItems() {
 function getItemsCart(items) {
     return `
                                   <li class="header__cart-item">
-                                    <img src="https://minhcaumart.vn/media/com_eshop/products/Sua-Tuoi-Tiet-Trung-Nguyen-Chat-Vinamilk-Khong-duong--1000ml-.jpg" alt="" class="header__cart-img">
+                                    <img src="${items.product.img}" alt="" class="header__cart-img">
 
                                     <div class="header__cart-item-info">
 
@@ -252,18 +262,16 @@ $(document).ready(function () {
                 content += getListCategory(data[i]);
 
             }
-
-
             document.getElementById('list-category').innerHTML = content;
         }
     })
 });
 
 function getListCategory(category) {
-    return `<li class="category-item category-item--active">
-        <a href="#" class="category-item__link">
+    return `<li class="category-item category-item--active" >
+        <span class="category-item__link" onclick="findProductByCategory('${category.name}')">
             ${category.name}
-        </a>
+        </span>
     </li>`
 }
 

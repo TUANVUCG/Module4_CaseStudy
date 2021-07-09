@@ -15,7 +15,7 @@ function getProductById(product) {
     return `<div class="row">
         <div style="margin-top:50px">
         <div class="col-xs-4 item-photo">
-            <img style="max-width:100%;" src="https://minhcaumart.vn/media/com_eshop/products/Sua-Tuoi-Tiet-Trung-Nguyen-Chat-Vinamilk-Khong-duong--1000ml-.jpg" />
+            <img style="max-width:100%;" src="${product.img}" />
         </div>
         <div class="col-xs-5" style="border:0px solid gray">
 
@@ -102,7 +102,7 @@ $(document).ready(function () {
 function getItemsCart(items) {
     return `
                                 <li class="header__cart-item">
-                                    <img src="https://minhcaumart.vn/media/com_eshop/products/Sua-Tuoi-Tiet-Trung-Nguyen-Chat-Vinamilk-Khong-duong--1000ml-.jpg" alt="" class="header__cart-img">
+                                    <img src="${items.product.img}" alt="" class="header__cart-img">
 
                                     <div class="header__cart-item-info">
 
@@ -153,7 +153,6 @@ function addItems(){
                 cart : {
                     id: 1
                 },
-                total : 0,
             }
             $.ajax({
                 headers: {
