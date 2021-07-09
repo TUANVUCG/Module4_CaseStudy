@@ -1,13 +1,15 @@
-$(document).ready(function (){
+$(document).ready(function () {
     $.ajax({
         type: "get",
         url: "/shopee/cart",
         success: function (data) {
             showListItems(data)
+
         }
     })
 })
-function getItemsFromCart(items, totalPriceProduct){
+
+function getItemsFromCart(items, totalPriceProduct) {
     return `
           <tbody>
           <tr>
@@ -20,11 +22,11 @@ function getItemsFromCart(items, totalPriceProduct){
           </tr>`
 }
 
-function deleteItems(id){
+function deleteItems(id) {
     $.ajax({
         type: "delete",
-        url: "/shopee/delete-items/"+ id,
-        success: function (){
+        url: "/shopee/delete-items/" + id,
+        success: function () {
             $.ajax({
                 type: "get",
                 url: "/shopee/cart",
@@ -36,7 +38,7 @@ function deleteItems(id){
     })
 }
 
-function showListItems(data){
+function showListItems(data) {
     let totalPriceProduct = 0;
     let totalPrice = 0;
     let content = `<thead>
@@ -49,10 +51,10 @@ function showListItems(data){
             <th> </th>
           </tr>
           </thead>`;
-    for (let i = 0; i < data.length; i++){
+    for (let i = 0; i < data.length; i++) {
         totalPriceProduct += data[i].product.realPrice * data[i].quantity
         totalPrice += totalPriceProduct
-        content += getItemsFromCart(data[i],totalPriceProduct,totalPrice)
+        content += getItemsFromCart(data[i], totalPriceProduct, totalPrice)
     }
     document.getElementById("order").innerHTML = content + `<tr>
             <td></td>
@@ -76,8 +78,78 @@ function showListItems(data){
             <td></td>
             <td></td>
             <td><strong>Tổng thanh toán</strong></td>
-            <td class="text-right"><strong>${totalPrice}đ</strong></td>
+            <td class="text-right" id="total-order"><strong>${totalPrice}đ</strong></td>
           </tr>
           </tbody>`
 
 }
+
+
+function addOrder() {
+    let today = new Date();
+    let month = today.getMonth() + 1
+    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() + "-" + today.getDate() + "/" + month + "/" + today.getFullYear();
+    let newOrder = {
+        day : time,
+        status: 1,
+        user : {
+            id :1
+        }
+    }
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "POST",
+        data: JSON.stringify(newOrder),
+        url: "/shopee/order",
+
+        success: function (data1) {
+            $.ajax({
+                type: "get",
+                url: "/shopee/cart",
+                success: function (data) {
+                    for (let i = 0; i < data.length; i++) {
+                        let product = {}
+                        let itemOrder = {
+                            quantity : data[i].quantity,
+                            product : data[i].product
+                        }
+                        $.ajax({
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            type: "POST",
+                            data: JSON.stringify(itemOrder),
+                            url: "/shopee/item-order",
+                            success: function (data3) {
+                                let orderDetail = {
+                                    orders : data1,
+                                    itemsOrder : data3
+                                }
+                                $.ajax({
+                                    headers: {
+                                        'Accept': 'application/json',
+                                        'Content-Type': 'application/json'
+                                    },
+                                    type: "POST",
+                                    data: JSON.stringify(orderDetail),
+                                    url: "/shopee/order-detail",
+                                    success: function () {
+
+                                    }
+                                })
+                            }
+                        })
+                    }
+                }
+            })
+        }
+    })
+}
+
+
+
+

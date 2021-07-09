@@ -77,4 +77,13 @@ public class ProductController {
     public ResponseEntity<?> findAllProduct(){
         return new ResponseEntity<>(productService.findAll(),HttpStatus.OK);
     }
+
+    @GetMapping("/desc")
+    public ResponseEntity<Page<Product>> findAllByOrderBySellPriceDesc(Pageable pageable){
+        return new ResponseEntity<>(productService.findAllByOrderBySellPriceDesc(pageable), HttpStatus.OK);
+    }
+     @GetMapping("/asc")
+    public ResponseEntity<?> findAllProductAsc(Pageable pageable){
+        return new ResponseEntity<>(productService.findAllProductAsc(pageable), HttpStatus.OK);
+    }
 }

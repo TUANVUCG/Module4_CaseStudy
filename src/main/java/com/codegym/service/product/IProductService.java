@@ -6,6 +6,8 @@ import com.codegym.service.IGeneralService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 
 public interface IProductService extends IGeneralService<Product> {
 
@@ -18,4 +20,9 @@ public interface IProductService extends IGeneralService<Product> {
     Page<Product> findAllProductByCategory(String category,Pageable pageable);
 
     Iterable<ProductSold>getSold();
+
+    Page<Product> findAllByOrderBySellPriceDesc(Pageable pageable);
+
+    Page<Product> findAllProductAsc(Pageable pageable);
+
 }

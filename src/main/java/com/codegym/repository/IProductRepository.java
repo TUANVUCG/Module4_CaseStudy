@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface IProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findAllByNameContaining(String category, Pageable pageable);
@@ -21,8 +23,14 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findAllProductByCategory(String category, Pageable pageable);
 
     @Query(value = "select o.products_id as productid, count(o.products_id) as count, i.quantity as quantity " +
-            "from orders_products as o join items i on i.product_id = o.products_id group by o.products_id",nativeQuery = true)
-    Iterable<ProductSold>getSold();
+            "from orders_products as o join items i on i.product_id = o.products_id group by o.products_id", nativeQuery = true)
+    Iterable<ProductSold> getSold();
 
+    //    Sap xep giam dan
+//    @Query("select p from Product as p order by p.sellPrice asc ")
+    Page<Product> findAllByOrderBySellPriceDesc(Pageable pageable);
 
+    //    Sap xep tang dan theo gia
+    @Query("select p from Product as p order by p.sellPrice asc ")
+    Page<Product> findAllProductAsc(Pageable pageable);
 }

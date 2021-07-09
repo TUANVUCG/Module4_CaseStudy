@@ -182,8 +182,7 @@
 
                     <div class="header__search-wrap">
 
-                        <input type="text" id="seachProduct" class="header__search-input" placeholder="Tìm kiếm sản phẩm">
-                        <input type="text" class="header__search-input" placeholder="Tìm kiếm sản phẩm" name="">
+                        <input type="text" id="searchProduct" class="header__search-input" placeholder="Tìm kiếm sản phẩm">
                         <!-- Search history -->
                         <div class="header__search-history">
 
@@ -343,10 +342,10 @@
                             <!-- List option -->
                             <ul class="select-input__list">
                                 <li class="select-input__item">
-                                    <a href="#" class="select-input__link">Giá: Thấp đến cao</a>
+                                    <button onclick="showAllProductDesc()" class="select-input__link">Giá: Thấp đến cao</button>
                                 </li>
                                 <li class="select-input__item">
-                                    <a href="#" class="select-input__link">Giá: Cao đến thấp</a>
+                                    <span onclick="showAllProductAsc()" class="select-input__link">Giá: Cao đến thấp</span>
                                 </li>
                             </ul>
 
@@ -828,13 +827,7 @@
 
 
 <!--Search Product-->
-<script>
-function showProduct() {
-    
-}
-</script>
-
-<script src="../js/mainIndex.js"></script>
+<script src="../static/js/mainIndex.js"></script>
 </body>
 
 </html>
