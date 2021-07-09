@@ -20,7 +20,7 @@ html {
     /* font-size: 100% = 16px */
     font-size: 62.5%;  /* 62.5% = 10px */
     line-height: 1.6rem;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif ;
     box-sizing: border-box;
 }
 
@@ -111,7 +111,7 @@ html {
 
 .btn.btn--
 
-/* Selection */
+    /* Selection */
 
 .select-input {
     position: relative;
@@ -142,11 +142,9 @@ html {
 
 .select-input__list {
     position: absolute;
-    left: 0;
-    right: 0;
     top: 25px;
     border-radius: 2px;
-    background-color: var(--white-color);   
+    background-color: var(--white-color);
     padding: 8px 16px;
     list-style: none;
     display: none;
