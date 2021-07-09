@@ -12,7 +12,9 @@ import com.codegym.service.product.IProductService;
 import com.codegym.service.user.IUserService;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.method.P;
@@ -41,8 +43,12 @@ public class IndexController {
 
 
     @GetMapping("/product")
-    public ResponseEntity<?> getListProduct() {
-        return new ResponseEntity<>(productService.findAllProduct(), HttpStatus.OK);
+    public ResponseEntity<?> getListProduct(@PageableDefault(size = 10) Pageable pageable) {
+        return new ResponseEntity<>(productService.findAllProduct(pageable), HttpStatus.OK);
+    }
+    @GetMapping("/product/page/{page}")
+    public ResponseEntity<?> changePage(@PageableDefault(size = 10) Pageable pageable,@PathVariable int page) {
+        return new ResponseEntity<>(productService.findAllProduct(pageable.withPage(page)), HttpStatus.OK);
     }
 
     @GetMapping()
@@ -80,10 +86,10 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView("/cart");
         return modelAndView;
     }
-//    @GetMapping("/cart")
-//    public ResponseEntity<> getItemsCart() {
-//        return new ResponseEntity<>(itemsService.findItemsByCart(Long.valueOf(1)), HttpStatus.OK);
-//    }
+    @GetMapping("/cart")
+    public ResponseEntity<?> getItemsCart() {
+        return new ResponseEntity<>(itemsService.findItemsByCart(Long.valueOf(1)), HttpStatus.OK);
+    }
 
     @GetMapping("/category")
     public ResponseEntity<?> getListCategory() {

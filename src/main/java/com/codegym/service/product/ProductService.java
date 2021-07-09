@@ -47,8 +47,8 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public Iterable<Product> findAllProduct() {
-        for (Product product : productRepository.findAllProduct()){
+    public Page<Product> findAllProduct(Pageable pageable) {
+        for (Product product : productRepository.findAllProduct(pageable)){
             for (ProductSold demo : getSold()){
                 if (product.getId() == demo.getProductId()){
                     product.setSold(demo.getCount()+demo.getQuantity());
@@ -56,7 +56,7 @@ public class ProductService implements IProductService{
                 }
             }
         }
-        return productRepository.findAllProduct();
+        return productRepository.findAllProduct(pageable);
     }
 
     @Override

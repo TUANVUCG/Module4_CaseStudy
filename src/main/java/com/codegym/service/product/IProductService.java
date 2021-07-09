@@ -12,7 +12,7 @@ public interface IProductService extends IGeneralService<Product> {
 
     Page<Product> findAll(Pageable pageable);
 
-    Iterable<Product> findAllProduct();
+    Page<Product> findAllProduct(Pageable pageable);
 
     Iterable<ProductSold>getSold();
 }
