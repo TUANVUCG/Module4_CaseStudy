@@ -63,4 +63,9 @@ public class ProductService implements IProductService{
     public Iterable<ProductSold> getSold() {
         return productRepository.getSold();
     }
+
+    @Override
+    public Page<Product> findAllProductByCategory(String category,Pageable pageable) {
+        return productRepository.findAllProductByCategory(category, pageable);
+    }
 }

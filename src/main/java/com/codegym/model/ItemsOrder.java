@@ -5,25 +5,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Collection;
-
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Orders {
+public class  ItemsOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String day;
+    private double quantity;
 
-    private int status;
-
-    @ManyToOne
-    private User user;
-
-
+    @OneToOne
+    private Product product;
 
 }

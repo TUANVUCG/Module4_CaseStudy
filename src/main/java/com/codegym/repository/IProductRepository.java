@@ -17,6 +17,9 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
     @Query("select p from Product as p group by p.id")
     Page<Product> findAllProduct(Pageable pageable);
 
+    @Query("select p from Product as p WHERE p.category.name = ?1")
+    Page<Product> findAllProductByCategory(String category, Pageable pageable);
+
     @Query(value = "select o.products_id as productid, count(o.products_id) as count, i.quantity as quantity from orders_products as o join items i on i.product_id = o.products_id group by o.products_id",nativeQuery = true)
     Iterable<ProductSold>getSold();
 
