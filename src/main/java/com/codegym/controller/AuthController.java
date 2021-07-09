@@ -27,7 +27,7 @@ public class AuthController {
     @Autowired
     private IUserService userService;
 
-    @PostMapping("/loginAndRegis")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
@@ -38,7 +38,7 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(currentUser.getId(), jwt, userDetails.getUsername(), userDetails.getAuthorities()));
     }
 
-    @GetMapping("/loginAndRegis")
+    @GetMapping("/login1")
     public ModelAndView login(){
         return new ModelAndView("/loginAndRegis");
     }
