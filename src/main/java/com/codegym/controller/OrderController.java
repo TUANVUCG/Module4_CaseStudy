@@ -1,7 +1,6 @@
 package com.codegym.controller;
 
-import com.codegym.model.Items;
-import com.codegym.model.Order;
+import com.codegym.model.Orders;
 import com.codegym.service.order.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,13 +16,13 @@ public class OrderController {
     private IOrderService orderService;
 
     @PostMapping("add-order")
-    public ResponseEntity<?> addItems(Order order){
+    public ResponseEntity<?> addItems(Orders order){
         return new ResponseEntity<>(orderService.save(order), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/remove-order/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
-        Optional<Order> itemsOptional = orderService.findById(id);
+        Optional<Orders> itemsOptional = orderService.findById(id);
         if (!itemsOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -32,8 +31,8 @@ public class OrderController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateItems(@PathVariable Long id, @RequestBody Order order) {
-        Optional<Order> orderOptional = orderService.findById(id);
+    public ResponseEntity<?> updateItems(@PathVariable Long id, @RequestBody Orders order) {
+        Optional<Orders> orderOptional = orderService.findById(id);
         if (!orderOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

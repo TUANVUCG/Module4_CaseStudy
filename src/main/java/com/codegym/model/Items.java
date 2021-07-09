@@ -8,7 +8,9 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class Items {
+@NoArgsConstructor
+@AllArgsConstructor
+public class  Items {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,6 +23,6 @@ public class Items {
     @ManyToOne
     private Cart cart;
 
-    @ManyToOne
-    private Order order;
+    private double total;
+
 }
