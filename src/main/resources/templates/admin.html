@@ -344,10 +344,6 @@
                             <input type="text" class="form-control" id="quantityEdit">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Real Price</label>
-                            <input type="text" class="form-control" id="realPriceEdit">
-                        </div>
-                        <div class="mb-3">
                             <label class="form-label">Image</label>
                             <input type="text" class="form-control" id="imageEdit">
                         </div>
@@ -462,7 +458,6 @@
                         <label class="form-label">User Name</label>
                         <input type="text" class="form-control" id="editUserName">
                     </div>
-
                 </form>
             </div>
             <div class="modal-footer">
@@ -577,7 +572,6 @@
         let purchasePriceCreate = $('#purchasePriceCreate').val();
         let saleCreate = $('#saleCreate').val();
         let quantityCreate = $('#quantityCreate').val();
-        let realPriceCreate = $('#realPriceCreate').val();
         let imageCreate = $('#imageCreate').val();
         let descriptionCreate = $('#descriptionCreate').val();
         let newProduct = {
@@ -586,7 +580,6 @@
             purchasePrice: purchasePriceCreate,
             sale: saleCreate,
             quantity: quantityCreate,
-            realPrice: realPriceCreate,
             img: imageCreate,
             description: descriptionCreate,
         };
@@ -601,7 +594,6 @@
             url: "/products",
             success: showProduct
         })
-        event.preventDefault();
     }
 </script>
 
@@ -617,7 +609,6 @@
                 $('#purchasePriceEdit').val(data.purchasePrice)
                 $('#saleEdit').val(data.sale)
                 $('#quantityEdit').val(data.quantity)
-                $('#realPriceEdit').val(data.realPrice)
                 $('#imageEdit').val(data.img)
                 $('#descriptionEdit').val(data.description)
                 $('#updateButton').click(function (event) {
@@ -626,7 +617,6 @@
                     let purchasePrice = $('#purchasePriceEdit').val()
                     let sale = $('#saleEdit').val()
                     let quantity = $('#quantityEdit').val()
-                    let realPrice = $('#realPriceEdit').val()
                     let img = $('#imageEdit').val()
                     let description = $('#descriptionEdit').val()
                     let updateProduct = {
@@ -649,7 +639,6 @@
                         url: "/products/" + id,
                         success: showProduct
                     });
-                    event.preventDefault();
                 });
             }
         })
@@ -670,7 +659,6 @@
                 data: JSON.stringify(id),
                 success: showProduct
             });
-            event.preventDefault();
         });
     }
 </script>
@@ -700,6 +688,7 @@
             }
         })
     }
+
 
     <!--showUser-->
     function showList() {
@@ -765,7 +754,6 @@
                                         </button>
                                     </td>
                                 </tr>`
-
     }
 
     function showForm() {
@@ -815,7 +803,6 @@
    </form>
    </div>   `
         document.getElementById('userList').innerHTML = formUser
-
     }
 
     function addNewUser() {
@@ -861,7 +848,6 @@
                 data: JSON.stringify(id),
                 success: showList
             });
-            event.preventDefault()
         });
     }
 
@@ -896,7 +882,6 @@
                         password: password,
                         phoneNumber: phoneNumber,
                         username: userName,
-
                     }
                     $.ajax({
                         headers: {
@@ -908,7 +893,6 @@
                         url: "/admin/" + id,
                         success: showList
                     });
-                    event.preventDefault();
                 });
             }
         })
@@ -984,10 +968,16 @@
         })
 
     }
-    <!--profile-->
 
 
 </script>
+
+<script>
+    window.onload = function() {
+        showProduct();
+    };
+</script>
+
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> </script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>

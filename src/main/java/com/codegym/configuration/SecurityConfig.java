@@ -52,13 +52,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/**").permitAll()
+                .antMatchers("/**","/index", "/api/loginAndRegis").permitAll()
                 .antMatchers("/index")
                 .access("hasRole('USER')")
                 .antMatchers("/admin")
                 .access("hasRole('ADMIN')")
                 .anyRequest().authenticated()
-                .and().formLogin().successHandler(new CustomSuccessHandler())
+                .and().formLogin().loginPage("/loginAndRegis").successHandler(new CustomSuccessHandler())
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
