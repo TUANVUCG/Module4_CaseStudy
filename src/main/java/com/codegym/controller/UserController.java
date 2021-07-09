@@ -1,28 +1,62 @@
 package com.codegym.controller;
 
-import com.codegym.service.jwt.JwtService;
-import com.codegym.service.role.RoleService;
-import com.codegym.service.user.UserService;
+import com.codegym.model.User;
+import com.codegym.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
-import java.util.Set;
+import java.util.Optional;
+
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/admin")
 public class UserController {
-    @Autowired
-    AuthenticationManager authenticationManager;
 
     @Autowired
-    private JwtService jwtService;
+    private IUserService userService;
 
+    @ModelAttribute("user")
+    public Iterable<User> users() {
+        return userService.findAll();
+    }
 
+    @GetMapping("")
+    public ModelAndView showUser() {
+        ModelAndView modelAndView = new ModelAndView("/admin");
+        modelAndView.addObject("user", users());
+        return modelAndView;
+    }
+
+    @PostMapping("")
+    public ResponseEntity<User> saveUser(@RequestBody User user) {
+        return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
+    }
+
+    @GetMapping("listUser")
+    public ResponseEntity<Iterable<User>> allUser() {
+        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
+        Optional<User> userOptional = userService.findById(id);
+        if (!userOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        userService.remove(id);
+        return new ResponseEntity<>(userOptional.get(), HttpStatus.NO_CONTENT);
+    }
+    @PutMapping("{id}")
+    public ResponseEntity<User> editUser(@PathVariable Long id,@RequestBody User user){
+        Optional<User> userOptional = userService.findById(id);
+                if(!userOptional.isPresent()){
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+                user.setId(id);
+                return new ResponseEntity<>(userService.save(user),HttpStatus.OK);
+    }
 
 }
