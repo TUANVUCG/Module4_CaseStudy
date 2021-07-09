@@ -38,7 +38,7 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(currentUser.getId(), jwt, userDetails.getUsername(), userDetails.getAuthorities()));
     }
 
-    @GetMapping("/login1")
+    @GetMapping("/login")
     public ModelAndView login(){
         return new ModelAndView("/loginAndRegis");
     }

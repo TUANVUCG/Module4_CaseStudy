@@ -391,7 +391,7 @@
             },
             type: "POST",
             data: JSON.stringify(newUser),
-            url: "/api/login1",
+            url: "/api/login",
             success : function (data){
                 localStorage.setItem("accessToken", data.accessToken);
                 console.log("Login success");
