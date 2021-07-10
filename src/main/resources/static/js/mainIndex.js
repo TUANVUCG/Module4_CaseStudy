@@ -63,6 +63,7 @@ function getListPagination(data, page) {
     document.getElementById("pagination-" + page).classList.add('pagination-item--active')
 }
 
+// Vẽ 1 proudct
 function getProduct(product) {
     return `<div class="col l-2-4 m-4 c-6">
                         <a class="home-product-item" id="${product.id}" href="/shopee/view/${product.id}">
@@ -272,16 +273,32 @@ function getListCategory(category) {
     </li>`
 }
 
+
 function showAllProductDesc() {
     $.ajax({
         type: "get",
         url: "/products/desc",
         success: function (data) {
             let content = "";
-            for(let i = 0; i < data.content.length; i++){
+            let pagination = `<li class="pagination-item">
+                            <a href="" class="pagination-item__link">
+                                <i class="pagination-item__icon fas fa-chevron-left"></i>
+                            </a>
+                        </li>`;
+            for (let i = 0; i < data.content.length; i++) {
                 content += getProduct(data.content[i]);
             }
-            document.getElementById('list-product').innerHTML = content;
+
+            for (let i = 0; i < data.totalPages; i++) {
+                pagination += getPagination(i + 1);
+                document.getElementById('list-product').innerHTML = content;
+                document.getElementById('pagination').innerHTML = pagination + `<li class="pagination-item">
+                            <a href="" class="pagination-item__link">
+                                <i class="pagination-item__icon fas fa-chevron-right"></i>
+                            </a>
+                        </li>`;
+                document.getElementById("pagination-" + page).classList.add('pagination-item--active')
+            }
         }
     })
 }
