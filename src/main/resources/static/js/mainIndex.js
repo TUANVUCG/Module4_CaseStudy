@@ -4,19 +4,70 @@ $(document).ready(function () {
         type: "get",
         url: "/shopee/product",
         success: function (data) {
-            let content = "";
-            for (let i = 0; i < data.length; i++) {
-                content += getProduct(data[i]);
-            }
-            document.getElementById('list-product').innerHTML = content;
+            getListPagination(data)
+        }
+
+    })
+})
+
+function getPagination(pageSize) {
+    return `<li class="pagination-item" id="pagination-${pageSize}">
+                            <span class="pagination-item__link" onclick="changePagination(${pageSize})">
+                                ${pageSize}
+                            </span>
+                        </li>`
+}
+
+function findProductByCategory(category) {
+    $.ajax({
+        type: "get",
+        url: "/shopee/product/category/" + category,
+        success: function (data) {
+            getListPagination(data)
+        }
+
+    })
+}
+
+
+function changePagination(page) {
+    let p = page - 1
+    $.ajax({
+        type: "get",
+        url: "/shopee/product/page/" + p,
+        success: function (data) {
+            getListPagination(data, page)
         }
     })
-});
+}
+
+function getListPagination(data, page) {
+    let content = "";
+    let pagination = `<li class="pagination-item">
+                            <a href="" class="pagination-item__link">
+                                <i class="pagination-item__icon fas fa-chevron-left"></i>
+                            </a>
+                        </li>`;
+    for (let i = 0; i < data.content.length; i++) {
+        content += getProduct(data.content[i]);
+    }
+    for (let i = 0; i < data.totalPages; i++) {
+        pagination += getPagination(i + 1);
+    }
+    document.getElementById('list-product').innerHTML = content;
+    document.getElementById('pagination').innerHTML = pagination + `<li class="pagination-item">
+                            <a href="" class="pagination-item__link">
+                                <i class="pagination-item__icon fas fa-chevron-right"></i>
+                            </a>
+                        </li>`;
+    document.getElementById("pagination-" + page).classList.add('pagination-item--active')
+}
+
 function getProduct(product) {
     return `<div class="col l-2-4 m-4 c-6">
                         <a class="home-product-item" id="${product.id}" href="/shopee/view/${product.id}">
                                     <div class="home-product-item__img"
-                                         style="background-image: url(https://minhcaumart.vn/media/com_eshop/products/Sua-Tuoi-Tiet-Trung-Nguyen-Chat-Vinamilk-Khong-duong--1000ml-.jpg);">
+                                         style="background-image: url(${product.img});">
                                     </div>
 
                                     <h4 class="home-product-item__name">
@@ -64,81 +115,6 @@ function getProduct(product) {
                             </div>`;
 }
 
-// function getDetailProduct(id) {
-//     $.ajax({
-//         type: "get",
-//         url: "/shopee/view/" + id,
-//         success: function (data) {
-//             let content = `<div className="col-4 l-2 m-0 c-0"></div>`
-
-//             content += getProductById(data);
-//             document.getElementById("detail-product").innerHTML = content;
-//         }
-
-//     })
-// }
-
-// function getProductById(product) {
-//     return `<div class="row">
-//         <div class="col-xs-4 item-photo">
-//             <img style="max-width:100%;" src="https://minhcaumart.vn/media/com_eshop/products/Sua-Tuoi-Tiet-Trung-Nguyen-Chat-Vinamilk-Khong-duong--1000ml-.jpg" />
-//         </div>
-//         <div class="col-xs-5" style="border:0px solid gray">
-
-//         <h3>${product.name}</h3>
-//         <h5 style="color:#337ab7"><a href="#">${product.category.name}</a> <small style="color:#337ab7"></small></h5>
-
-
-//         <h6 class="title-price" style="text-decoration: line-through">${product.sellPrice}</h6>
-//         <h3 style="margin-top:0px; color: var(--primary-color)">${product.realPrice} <span>${product.sale}%</span></h3>
-
-
-
-//         <div class="section">
-//         <h6 class="title-attr" style="margin-top:15px;" ><small>COLOR</small></h6>
-//         <div>
-//         <div class="attr" style="width:25px;background:#5a5a5a;"></div>
-//         <div class="attr" style="width:25px;background:white;"></div>
-//         </div>
-//         </div>
-//         <div class="section" style="padding-bottom:5px;">
-//         <h6 class="title-attr"><small>CAPACIDAD</small></h6>
-//         <div>
-//         <div class="attr2">16 GB</div>
-//         <div class="attr2">32 GB</div>
-//         </div>
-//         </div>
-//         <div class="section" style="padding-bottom:20px;">
-//         <h6 class="title-attr"><small>CANTIDAD</small></h6>
-//         <div>
-//         <div class="btn-minus" onclick="reduceQuantity()"><span class="glyphicon glyphicon-minus"></span></div>
-//         <input value="1" />
-//         <div class="btn-plus" onclick="increaseQuantity()"><span class="glyphicon glyphicon-plus"></span></div>
-//         </div>
-//         </div>
-
-
-//         <div class="section" style="padding-bottom:20px;">
-//         <button class="btn btn--big btn--primary" id="add-items"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>Thêm vào giỏ hàng</button>
-//         <button class="btn btn--big btn--primary"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>Mua ngay</button>
-//         </div>
-//         </div>
-
-//         <div class="col-xs-9">
-//         <ul class="menu-items">
-//         <li class="active">Chi tiết sản phẩm</li>
-//         </ul>
-//         <div style="width:100%;border-top:1px solid silver">
-//         <p style="padding:15px;">
-//         <small>
-//         ${product.description}
-//         </small>
-//         </p>
-//         </div>
-//         </div>
-//         </div>`
-// }
-
 
 // Items
 $(document).ready(function () {
@@ -149,7 +125,7 @@ $(document).ready(function () {
             let content = `<h4 class="header__cart-heading">
                                 Sản phẩm đã thêm
                             </h4> <ul class="header__cart-list-item">`;
-            if(data.length == 0){
+            if (data.length == 0) {
 
                 content = `<img src="../img/no__cart.jpg" alt=""
                     class="header__cart-no-cart-img">
@@ -163,7 +139,7 @@ $(document).ready(function () {
                     content += getItemsCart(data[i]);
                 }
                 document.getElementById('list-items').innerHTML = content + `</ul>
-                    <a href="#" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>`;
+                    <a href="/shopee/order" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>`;
                 document.getElementById('quantity-items').innerText = data.length;
             }
 
@@ -172,7 +148,7 @@ $(document).ready(function () {
     })
 });
 
-function getListItems(){
+function getListItems() {
     $.ajax({
         type: "get",
         url: "/shopee/cart",
@@ -185,17 +161,18 @@ function getListItems(){
             for (let i = 0; i < data.length; i++) {
                 content += getItemsCart(data[i]);
 
-                document.getElementById('list-items').innerHTML = content + `</ul><a href="#" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>`;
+                document.getElementById('list-items').innerHTML = content + `</ul><a href="/shopee/order" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>`;
                 document.getElementById('quantity-items').innerText = data.length;
             }
 
         }
     })
 }
+
 function getItemsCart(items) {
     return `
                                   <li class="header__cart-item">
-                                    <img src="https://minhcaumart.vn/media/com_eshop/products/Sua-Tuoi-Tiet-Trung-Nguyen-Chat-Vinamilk-Khong-duong--1000ml-.jpg" alt="" class="header__cart-img">
+                                    <img src="${items.product.img}" alt="" class="header__cart-img">
 
                                     <div class="header__cart-item-info">
 
@@ -220,14 +197,13 @@ function getItemsCart(items) {
                                         </div>
 
                                     </div>
-                                </li>
-
-                            `
+                                </li>`
 }
-function deleteItems(id){
+
+function deleteItems(id) {
     $.ajax({
         type: "delete",
-        url: "/shopee/delete-items/"+ id,
+        url: "/shopee/delete-items/" + id,
 
         success: getListItems
     })
@@ -283,18 +259,29 @@ $(document).ready(function () {
                 content += getListCategory(data[i]);
 
             }
-
-
             document.getElementById('list-category').innerHTML = content;
         }
     })
 });
 
-function getListCategory(category){
-    return `<li class="category-item category-item--active">
-        <a href="#" class="category-item__link">
+function getListCategory(category) {
+    return `<li class="category-item category-item--active" >
+        <span class="category-item__link" onclick="findProductByCategory('${category.name}')">
             ${category.name}
-        </a>
+        </span>
     </li>`
 }
 
+function showAllProductDesc() {
+    $.ajax({
+        type: "get",
+        url: "/products/desc",
+        success: function (data) {
+            let content = "";
+            for(let i = 0; i < data.content.length; i++){
+                content += getProduct(data.content[i]);
+            }
+            document.getElementById('list-product').innerHTML = content;
+        }
+    })
+}

@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.xml.transform.OutputKeys;
 import java.util.Optional;
 
 @RestController
@@ -22,7 +21,6 @@ public class ProductController {
 
     @Autowired
     private IProductService productService;
-
 
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
@@ -35,7 +33,6 @@ public class ProductController {
         modelAndView.addObject("product", productService.findAll(pageable));
         return modelAndView;
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Product> deleteById(@PathVariable Long id) {
@@ -79,5 +76,14 @@ public class ProductController {
     @GetMapping("/productList")
     public ResponseEntity<?> findAllProduct(){
         return new ResponseEntity<>(productService.findAll(),HttpStatus.OK);
+    }
+
+    @GetMapping("/desc")
+    public ResponseEntity<Page<Product>> findAllByOrderBySellPriceDesc(Pageable pageable){
+        return new ResponseEntity<>(productService.findAllByOrderBySellPriceDesc(pageable), HttpStatus.OK);
+    }
+     @GetMapping("/asc")
+    public ResponseEntity<?> findAllByOrderBySellPriceAsc(Pageable pageable){
+        return new ResponseEntity<>(productService.findAllByOrderBySellPriceAsc(pageable), HttpStatus.OK);
     }
 }

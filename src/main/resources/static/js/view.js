@@ -15,7 +15,7 @@ function getProductById(product) {
     return `<div class="row">
         <div style="margin-top:50px">
         <div class="col-xs-4 item-photo">
-            <img style="max-width:100%;" src="https://minhcaumart.vn/media/com_eshop/products/Sua-Tuoi-Tiet-Trung-Nguyen-Chat-Vinamilk-Khong-duong--1000ml-.jpg" />
+            <img style="max-width:100%;" src="${product.img}" />
         </div>
         <div class="col-xs-5" style="border:0px solid gray">
 
@@ -44,9 +44,9 @@ function getProductById(product) {
         <h6 class="title-attr">Đã bán: ${product.sold}</h6>
         <div>
         <div style="display: flex">
-        <div class="btn" onclick="reduceQuantity()"><span class="glyphicon glyphicon-minus"></span></div>
-        <input value="1" id="product-quantity" />
-        <div class="btn" onclick="increaseQuantity()"><span class="glyphicon glyphicon-plus"></span></div></div>
+        <div class="btn--small btn" onclick="reduceQuantity()"><span class="glyphicon glyphicon-minus"></span></div>
+        <input value="1" id="product-quantity" style="border:1px solid var(--primary-color); width: 40px;outline: var(--primary-color); text-align: center"/>
+        <div class="btn--small btn" onclick="increaseQuantity()"><span class="glyphicon glyphicon-plus"></span></div></div>
         </div>
         </div>
 
@@ -95,35 +95,14 @@ $(document).ready(function () {
         type: "get",
         url: "/shopee/cart",
         success: function (data) {
-            let content = `<h4 class="header__cart-heading">
-                                Sản phẩm đã thêm
-                            </h4> <ul class="header__cart-list-item">`;
-            if(data.length == 0){
-
-                content = `<img src="/../img/no__cart.jpg" alt=""
-                    class="header__cart-no-cart-img">
-    
-                    <span class="header__cart-list-no-cart-msg">Chưa có sản phẩm</span>`
-                document.getElementById('list-items').innerHTML = content;
-                document.getElementById('quantity-items').innerText = 0;
-
-            } else {
-                for (let i = 0; i < data.length; i++) {
-                    content += getItemsCart(data[i]);
-                }
-                document.getElementById('list-items').innerHTML = content + `</ul>
-                    <a href="#" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>`;
-                document.getElementById('quantity-items').innerText = data.length;
-            }
-
-
+            getListItems(data)
         }
     })
 });
 function getItemsCart(items) {
     return `
                                 <li class="header__cart-item">
-                                    <img src="https://minhcaumart.vn/media/com_eshop/products/Sua-Tuoi-Tiet-Trung-Nguyen-Chat-Vinamilk-Khong-duong--1000ml-.jpg" alt="" class="header__cart-img">
+                                    <img src="${items.product.img}" alt="" class="header__cart-img">
 
                                     <div class="header__cart-item-info">
 
@@ -144,7 +123,7 @@ function getItemsCart(items) {
                                                 </span>
                                             <span class="header__cart-item-remote" id="${items.id}" onclick="deleteItems(this.id)">
                                                     Xóa
-                                                </span>
+                                               </span>
                                         </div>
 
                                     </div>
@@ -174,7 +153,6 @@ function addItems(){
                 cart : {
                     id: 1
                 },
-                total : 0,
             }
             $.ajax({
                 headers: {
@@ -223,7 +201,7 @@ function getListItems(){
                 for (let i = 0; i < data.length; i++) {
                     content += getItemsCart(data[i]);
 
-                    document.getElementById('list-items').innerHTML = content + `</ul><a href="#" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>`;
+                    document.getElementById('list-items').innerHTML = content + `</ul><a href="/shopee/order" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>`;
                     document.getElementById('quantity-items').innerText = data.length;
                 }
 

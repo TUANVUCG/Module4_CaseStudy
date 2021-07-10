@@ -52,10 +52,10 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             url = "/dba";
         } else if (isAdmin(roles)) {
             //Nếu là tài khoản đăng nhập có role là ADMIN thì điều hướng đến /admin
-            url = "/admin";
+            url = "/admin/list";
         } else if (isUser(roles)) {
             //Nếu là tài khoản đăng nhập có role là USER thì điều hướng đến /home
-            url = "/user";
+            url = "/shopee";
         } else {
             //Nếu tài khoản đăng nhập không có quyền truy cập sẽ điều hướng tới /accessDenied
             url = "/accessDenied";

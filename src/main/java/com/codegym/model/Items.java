@@ -23,6 +23,4 @@ public class  Items {
     @ManyToOne
     private Cart cart;
 
-    private double total;
-
 }
