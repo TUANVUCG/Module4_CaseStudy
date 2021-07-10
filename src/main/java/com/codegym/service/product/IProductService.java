@@ -23,6 +23,6 @@ public interface IProductService extends IGeneralService<Product> {
 
     Page<Product> findAllByOrderBySellPriceDesc(Pageable pageable);
 
-    Page<Product> findAllProductAsc(Pageable pageable);
+    Page<Product> findAllByOrderBySellPriceAsc(Pageable pageable);
 
 }

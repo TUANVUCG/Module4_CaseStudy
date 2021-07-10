@@ -27,10 +27,10 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
     Iterable<ProductSold> getSold();
 
     //    Sap xep giam dan
-//    @Query("select p from Product as p order by p.sellPrice asc ")
+    @Query("select p from Product as p order by p.sellPrice desc ")
     Page<Product> findAllByOrderBySellPriceDesc(Pageable pageable);
 
     //    Sap xep tang dan theo gia
     @Query("select p from Product as p order by p.sellPrice asc ")
-    Page<Product> findAllProductAsc(Pageable pageable);
+    Page<Product> findAllByOrderBySellPriceAsc(Pageable pageable);
 }

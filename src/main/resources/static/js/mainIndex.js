@@ -272,7 +272,6 @@ function getListCategory(category) {
     </li>`
 }
 
-
 function showAllProductDesc() {
     $.ajax({
         type: "get",
@@ -286,5 +285,3 @@ function showAllProductDesc() {
         }
     })
 }
-
-

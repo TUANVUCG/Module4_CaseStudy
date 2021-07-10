@@ -71,8 +71,8 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public Page<Product> findAllProductAsc(Pageable pageable) {
-        return productRepository.findAllProductAsc(pageable);
+    public Page<Product> findAllByOrderBySellPriceAsc(Pageable pageable) {
+        return productRepository.findAllByOrderBySellPriceAsc(pageable);
     }
 
 
