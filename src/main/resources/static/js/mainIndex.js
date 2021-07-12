@@ -116,7 +116,6 @@ function getProduct(product) {
                             </div>`;
 }
 
-
 // Items
 $(document).ready(function () {
     $.ajax({
